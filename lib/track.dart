@@ -1,38 +1,44 @@
-class Track {
-  final int? trackNumber;
-  final String artist;
-  final String album;
-  final String title;
-  final String? genre;
-  final int? year;
-  final Duration? duration;
-  final AudioFormat? format;
-  final String source;
+import 'package:isar/isar.dart';
 
-  const Track({
+part 'track.g.dart';
+
+@collection
+class Track {
+  Id id = Isar.autoIncrement; // you can also use id = null to auto increment
+  int? trackNumber;
+  String artist;
+  String album;
+  String title;
+  String? genre;
+  int? year;
+  int? durationInSeconds;
+  AudioFormat? format;
+  String source;
+
+  Track({
     this.trackNumber,
     required this.artist,
     required this.album,
     required this.title,
     this.genre,
     this.year,
-    this.duration,
+    this.durationInSeconds,
     this.format,
     required this.source,
   });
 }
 
+@embedded
 class AudioFormat {
-  final int? bitRate;
-  final Duration? duration;
-  final int sampleRate;
-  final String type;
-  final int? channels;
+  int? bitRate;
+  int? sampleRate;
+  String? type;
+  int? channels;
 
-  const AudioFormat(
-      {this.bitRate,
-      this.duration,
-      required this.sampleRate,
-      required this.type,
-      this.channels});
+  // AudioFormat({
+  //   this.bitRate,
+  //   required this.sampleRate,
+  //   required this.type,
+  //   this.channels,
+  // });
 }

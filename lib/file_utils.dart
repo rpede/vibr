@@ -61,20 +61,18 @@ Future<Track> extractFlacMetadata(File file) async {
       .map((e) => e.split("="))
       .map((e) => MapEntry(e[0], e[1])));
   return Track(
-    source: file.path,
-    artist: m['ARTIST'] ?? 'Unknown',
-    album: m['ALBUM'] ?? 'Unkown',
-    title: m['TITLE'] ?? 'Unknown',
-    genre: m['GENRE'],
-    trackNumber: int.tryParse(m['TRACKNUMBER'] ?? ''),
-    year: int.tryParse(m['DATE'] ?? ''),
-    format: AudioFormat(
-      sampleRate: streamInfo.sampleRate,
-      bitRate: streamInfo.bitsPerSample,
-      type: 'flac',
-      channels: streamInfo.channels,
-    ),
-  );
+      source: file.path,
+      artist: m['ARTIST'] ?? 'Unknown',
+      album: m['ALBUM'] ?? 'Unkown',
+      title: m['TITLE'] ?? 'Unknown',
+      genre: m['GENRE'],
+      trackNumber: int.tryParse(m['TRACKNUMBER'] ?? ''),
+      year: int.tryParse(m['DATE'] ?? ''),
+      format: AudioFormat()
+        ..sampleRate = streamInfo.sampleRate
+        ..bitRate = streamInfo.bitsPerSample
+        ..type = 'flac'
+        ..channels = streamInfo.channels);
 }
 
 Future<Track> extractMp3Metadata(File file) async {
@@ -97,11 +95,10 @@ Future<Track> extractMp3Metadata(File file) async {
     genre: m['genre'],
     trackNumber: int.tryParse(m['track'] ?? ''),
     year: int.tryParse(m['year'] ?? ''),
-    format: AudioFormat(
-      sampleRate: sampleRates[metadata.sampleRate]!,
-      type: 'mp3',
-      bitRate: metadata.bitrate,
-      channels: metadata.channelMode == ChannelMode.single_channel ? 1 : 2,
-    ),
+    format: AudioFormat()
+      ..sampleRate = sampleRates[metadata.sampleRate]!
+      ..type = 'mp3'
+      ..bitRate = metadata.bitrate
+      ..channels = metadata.channelMode == ChannelMode.single_channel ? 1 : 2,
   );
 }

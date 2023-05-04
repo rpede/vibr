@@ -19,6 +19,12 @@ class _FilesPanelState extends State<FilesPanel> {
   String? path;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (path == null) {
       return Center(
