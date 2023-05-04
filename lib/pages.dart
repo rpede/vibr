@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vibr/panels/files_panel.dart';
 
 import 'panels/panels.dart';
 
@@ -40,5 +41,11 @@ const List<AppPage> pages = [
     builder: LibraryPanel.new,
     icon: Icons.interests_outlined,
     selectedIcon: Icons.interests,
+  ),
+  AppPage(
+    title: 'Files',
+    builder: FilesPanel.new,
+    icon: Icons.folder_outlined,
+    selectedIcon: Icons.folder,
   ),
 ];
