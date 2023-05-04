@@ -6,14 +6,21 @@ part 'track.g.dart';
 class Track {
   Id id = Isar.autoIncrement; // you can also use id = null to auto increment
   int? trackNumber;
+
+  @Index()
   String artist;
+
   String album;
+  @Index()
   String title;
   String? genre;
   int? year;
   int? durationInSeconds;
   AudioFormat? format;
   String source;
+
+  @Index(type: IndexType.value, caseSensitive: false)
+  List<String> get text => [artist, title, album];
 
   Track({
     this.trackNumber,

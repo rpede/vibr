@@ -5,7 +5,7 @@ import 'package:flac_metadata/flacstream.dart';
 import 'package:flac_metadata/metadata.dart';
 import 'package:mime/mime.dart';
 import 'package:mp3_info/mp3_info.dart';
-import 'package:vibr/track.dart';
+import 'package:vibr/models/track.dart';
 
 extension StreamExtension<T> on Stream<T> {
   Future<List<T>> asFutureList() async {
@@ -17,12 +17,11 @@ extension StreamExtension<T> on Stream<T> {
   }
 }
 
-Future<List<Track>> findTracks(String path) {
+Stream<Track> findTracks(String path) {
   return getFiles(path)
       .asyncMap((file) => extractMetadata(file))
       .where((track) => track != null)
-      .map((track) => track as Track)
-      .asFutureList();
+      .map((track) => track as Track);
 }
 
 Stream<File> getFiles(String path) {
