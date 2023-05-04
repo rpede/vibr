@@ -30,16 +30,21 @@ class _FilesPanelState extends State<FilesPanel> {
     }
     return FutureBuilder(
       future: findTracks(path!),
-      builder: (context, snapshot) => ListView(
-        physics: ClampingScrollPhysics(),
-        children: (snapshot.data ?? [])
-            .map((track) => ListTile(
-                  title: Text(track.title),
-                  subtitle: Text(track.artist),
-                  trailing: Text(track.format?.type ?? 'Unknown'),
-                ))
-            .toList(),
-      ),
+      initialData: null,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return Center(child: CircularProgressIndicator());
+        return ListView(
+          physics: ClampingScrollPhysics(),
+          children: (snapshot.data ?? [])
+              .map((track) => ListTile(
+                    title: Text(track.title),
+                    subtitle: Text(track.artist),
+                    trailing: Text(track.format?.type ?? 'Unknown'),
+                  ))
+              .toList(),
+        );
+      },
     );
   }
 
