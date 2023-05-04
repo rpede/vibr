@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -28,11 +29,15 @@ class _FilesPanelState extends State<FilesPanel> {
       );
     }
     return FutureBuilder(
-      future: getFiles(path!),
+      future: findTracks(path!),
       builder: (context, snapshot) => ListView(
         physics: ClampingScrollPhysics(),
         children: (snapshot.data ?? [])
-            .map((e) => ListTile(title: Text(e.path)))
+            .map((track) => ListTile(
+                  title: Text(track.title),
+                  subtitle: Text(track.artist),
+                  trailing: Text(track.format?.type ?? 'Unknown'),
+                ))
             .toList(),
       ),
     );
