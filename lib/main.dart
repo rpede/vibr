@@ -12,6 +12,7 @@ import 'scaffolds/app_scaffold.dart';
 import 'scroll_wrapper.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final dir = await getApplicationDocumentsDirectory();
   final isar =
       await Isar.open([TrackSchema, SourceSchema], directory: dir.path);
