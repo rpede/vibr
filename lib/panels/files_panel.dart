@@ -1,16 +1,12 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/models/source.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../file_utils.dart';
+import '../datasources/filesystem_datasource.dart';
+import '../datasources/isar_datasource.dart';
 import '../models/track.dart';
 
 class FilesPanel extends StatefulWidget {
@@ -21,18 +17,20 @@ class FilesPanel extends StatefulWidget {
 }
 
 class _FilesPanelState extends State<FilesPanel> {
-  late Isar _isar;
+  late IsarDataSource _db;
+  late FilesystemDataSource _fs;
 
   @override
   void initState() {
-    _isar = context.read<Isar>();
+    _db = context.read<IsarDataSource>();
+    _fs = context.read<FilesystemDataSource>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getSource(),
+      future: _db.getLocalDataSource(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -43,7 +41,7 @@ class _FilesPanelState extends State<FilesPanel> {
           );
         }
         return StreamBuilder(
-          stream: getTracks(),
+          stream: _db.watchTracks(),
           builder: (context, snapshot) {
             if (!snapshot.hasData)
               return Center(child: CircularProgressIndicator());
@@ -63,28 +61,6 @@ class _FilesPanelState extends State<FilesPanel> {
     );
   }
 
-  Future<Source?> getSource() {
-    return _isar.sources.filter().localEqualTo(true).findFirst();
-  }
-
-  Stream<List<Track>> getTracks() {
-    return _isar.tracks
-        .filter()
-        .trackNumberGreaterThan(0)
-        .sortByArtist()
-        .thenByTitle()
-        .build()
-        .watch();
-  }
-
-  Future<bool> removeSource(int id) async {
-    final result = await _isar.writeTxn(() async {
-      return await _isar.sources.delete(id);
-    });
-    setState(() {});
-    return result;
-  }
-
   pickDirectory() async {
     if ([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.windows]
         .contains(defaultTargetPlatform)) {
@@ -95,12 +71,10 @@ class _FilesPanelState extends State<FilesPanel> {
     }
     final uri = await FilePicker.platform.getDirectoryPath();
     if (uri == null) return;
-    await _isar.writeTxn(() async {
-      await _isar.sources.put(Source(local: true, uri: uri));
-    });
+    await _db.setLocalDataSource(uri);
     setState(() {});
-    findTracks(uri).bufferCount(20).forEach((tracks) async {
-      await _isar.writeTxn(() async => _isar.tracks.putAll(tracks));
+    _fs.findTracks(uri).bufferCount(20).forEach((tracks) async {
+      await _db.saveTracks(tracks);
     });
   }
 }

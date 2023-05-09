@@ -3,10 +3,14 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:vibr/datasources/files_types/flac_info_extractor.dart';
+import 'package:vibr/datasources/files_types/mp3_info_extractor.dart';
+import 'package:vibr/datasources/isar_datasource.dart';
 import 'package:vibr/models/track.dart';
 
 import 'app_state.dart';
 import 'color_schemes.g.dart';
+import 'datasources/filesystem_datasource.dart';
 import 'models/source.dart';
 import 'scaffolds/app_scaffold.dart';
 import 'scroll_wrapper.dart';
@@ -14,24 +18,33 @@ import 'scroll_wrapper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final dir = await getApplicationDocumentsDirectory();
-  final isar =
-      await Isar.open([TrackSchema, SourceSchema], directory: dir.path);
-  runApp(VibrApp(isar));
+  runApp(VibrApp(
+    db: IsarDataSource(
+        await Isar.open([TrackSchema, SourceSchema], directory: dir.path)),
+    fs: FilesystemDataSource(
+      [
+        Mp3InfoExtractor(),
+        FlacInfoExtractor(),
+      ],
+    ),
+  ));
 }
 
 const headlineFont = 'Audiowide';
 
 class VibrApp extends StatelessWidget {
-  final Isar isar;
+  final IsarDataSource db;
+  final FilesystemDataSource fs;
 
-  VibrApp(this.isar);
+  VibrApp({required this.db, required this.fs});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppState()),
-        Provider.value(value: isar),
+        Provider.value(value: db),
+        Provider.value(value: fs),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
