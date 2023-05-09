@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../app_state.dart';
+import '../cubit/app_cubit.dart';
 import '../pages.dart';
 import '../widgets/navigation_item.dart';
 import '../widgets/small_horizontal_player.dart';
@@ -11,7 +11,8 @@ class MobileScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<AppState>(context);
+    final cubit = context.read<AppCubit>();
+    final state = context.select((AppCubit cubit) => cubit.state);
     final badgeColor = Theme.of(context).colorScheme.tertiary;
     return Scaffold(
       appBar: AppBar(
@@ -26,31 +27,32 @@ class MobileScaffold extends StatelessWidget {
         ],
       ),
       body: state.currentPage.builder(),
-      bottomNavigationBar: _buildNavigationBar(state),
+      bottomNavigationBar: _buildNavigationBar(cubit),
     );
   }
 
-  _buildNavigationBar(AppState state) {
+  _buildNavigationBar(AppCubit cubit) {
+    final track = cubit.state.currentTrack;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SmallHorizontalPlayer(),
+        if (track != null) SmallHorizontalPlayer(track),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: pages.asMap().entries.map((e) {
-            return _buildNavigationItem(state, e.value, e.key);
+            return _buildNavigationItem(cubit, e.value, e.key);
           }).toList(),
         ),
       ],
     );
   }
 
-  NavigationItem _buildNavigationItem(AppState state, AppPage page, int index) {
+  NavigationItem _buildNavigationItem(AppCubit cubit, AppPage page, int index) {
     return NavigationItem(
-      selected: state.selectedIndex == index,
+      selected: cubit.state.pageIndex == index,
       icon: page.icon,
       selectedIcon: page.selectedIcon,
-      onPressed: () => state.selectedIndex = index,
+      onPressed: () => cubit.setPageIndex(index),
     );
   }
 }

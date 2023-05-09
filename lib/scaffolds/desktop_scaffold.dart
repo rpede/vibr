@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/cubit/app_cubit.dart';
+import 'package:vibr/cubit/app_state.dart';
 
-import '../app_state.dart';
 import '../widgets/app_navigation_rail.dart';
 import '../widgets/large_player.dart';
 import '../widgets/lyric.dart';
@@ -11,7 +12,7 @@ class DesktopScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<AppState>(context);
+    final state = context.select((AppCubit cubit) => cubit.state);
     final badgeColor = Theme.of(context).colorScheme.tertiary;
     return Scaffold(
         appBar: AppBar(
@@ -29,8 +30,10 @@ class DesktopScaffold extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             AppNavigationRail(
-              selectedIndex: state.selectedIndex,
-              onDestinationSelected: (index) => state.selectedIndex = index,
+              selectedIndex: state.pageIndex,
+              onDestinationSelected: (index) {
+                context.read<AppCubit>().setPageIndex(index);
+              },
               extended: true,
               showPlayer: false,
             ),
@@ -44,15 +47,16 @@ class DesktopScaffold extends StatelessWidget {
                         child: state.currentPage.builder()),
                   ),
                 )),
-            Flexible(
-              flex: 1,
-              child: ListView(
-                children: const [
-                  LargePlayer(),
-                  Lyrics(),
-                ],
+            if (state.currentTrack != null)
+              Flexible(
+                flex: 1,
+                child: ListView(
+                  children: [
+                    LargePlayer(state.currentTrack!),
+                    Lyrics(),
+                  ],
+                ),
               ),
-            ),
           ],
         ));
   }

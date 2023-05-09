@@ -19,6 +19,8 @@ class Track {
   AudioFormat? format;
   String source;
 
+  String? image;
+
   @Index(type: IndexType.value, caseSensitive: false)
   List<String> get text => [artist, title, album];
 
@@ -32,6 +34,7 @@ class Track {
     this.durationInSeconds,
     this.format,
     required this.source,
+    this.image,
   });
 }
 

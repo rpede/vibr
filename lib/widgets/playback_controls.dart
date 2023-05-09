@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/app_state.dart';
 
+import '../cubit/app_cubit.dart';
+import '../cubit/app_state.dart';
 import 'glow.dart';
 
 class PlaybackControls extends StatefulWidget {
@@ -22,8 +23,8 @@ class _PlaybackControlsState extends State<PlaybackControls>
 
   @override
   void initState() {
-    final state = Provider.of<AppState>(context, listen: false);
-    _controller.value = state.player == PlayerStatus.paused ? 0 : 1;
+    final status = context.read<AppCubit>().state.status;
+    _controller.value = status == AppStatus.playing ? 1 : 0;
     super.initState();
   }
 
@@ -50,15 +51,16 @@ class _PlaybackControlsState extends State<PlaybackControls>
 
   _buildPlayPause(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final state = Provider.of<AppState>(context);
+    // final state = Provider.of<AppState>(context);
     return IconButton(
       key: ValueKey('play-pause'),
       onPressed: () {
-        if (state.player == PlayerStatus.paused) {
-          state.play();
+        final cubit = context.read<AppCubit>();
+        if (cubit.state.status == AppStatus.paused) {
+          cubit.play();
           _controller.forward(from: _controller.value);
-        } else if (state.player == PlayerStatus.playing) {
-          state.pause();
+        } else if (cubit.state.status == AppStatus.playing) {
+          cubit.pause();
           _controller.reverse(from: _controller.value);
         }
       },

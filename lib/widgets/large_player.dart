@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:vibr/models/track.dart';
 
-import '../app_state.dart';
-import '../song.dart';
 import 'playback_controls.dart';
 import 'playback_slider.dart';
 
 class LargePlayer extends StatelessWidget {
-  const LargePlayer({super.key});
+  const LargePlayer(this.song, {super.key});
+
+  final Track song;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final song = Provider.of<AppState>(context).currentSong;
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(children: [

@@ -2,36 +2,37 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_state.dart';
+import 'package:vibr/cubit/app_cubit.dart';
+import 'package:vibr/models/track.dart';
 import '../scaffolds/now_playing_scaffold.dart';
-import '../song.dart';
 import 'playback_controls.dart';
 
 class SmallVerticalPlayer extends StatelessWidget {
+  const SmallVerticalPlayer(this.track, {super.key, this.extended = false});
+
+  final Track track;
   final bool extended;
-  const SmallVerticalPlayer({super.key, this.extended = false});
 
   @override
   Widget build(BuildContext context) {
-    final song = Provider.of<AppState>(context).currentSong;
     return Column(mainAxisSize: MainAxisSize.min, children: [
       if (!extended) ...[
         RotatedBox(
           quarterTurns: -1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(song.title), Text(song.artist)],
+            children: [Text(track.title), Text(track.artist)],
           ),
         ),
         const SizedBox(height: 6),
       ],
       GestureDetector(
         child: !extended
-            ? _buildImage(song)
+            ? _buildImage(track)
             : Column(children: [
-                _buildImage(song),
-                Text(song.title),
-                Text(song.artist),
+                _buildImage(track),
+                Text(track.title),
+                Text(track.artist),
               ]),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -43,15 +44,15 @@ class SmallVerticalPlayer extends StatelessWidget {
     ]);
   }
 
-  Widget _buildImage(Song song) {
+  Widget _buildImage(Track track) {
     final double size = extended ? 150 : 75;
     return SizedBox(
       height: size,
       width: size,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Image.asset(song.image!),
-      ),
+          borderRadius: BorderRadius.circular(8),
+          child:
+              track.image != null ? Image.asset(track.image!) : Placeholder()),
     );
   }
 }
