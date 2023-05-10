@@ -1,52 +1,68 @@
 import 'dart:collection';
 
 import 'package:equatable/equatable.dart';
-import 'package:just_audio/just_audio.dart';
 
 import '../models/track.dart';
+
+enum PlayerStatus {
+  /// initial state, stop has been called or an error occurred.
+  stopped,
+
+  /// Currently playing audio.
+  playing,
+
+  /// Pause has been called.
+  paused,
+
+  /// The audio successfully completed (reached the end).
+  completed,
+}
 
 class PlayerState extends Equatable {
   final int? index;
 
-  /// Whether the player will play when [processingState] is
-  /// [ProcessingState.ready].
   final bool playing;
 
-  /// The current processing state of the player.
-  final ProcessingState processingState;
+  final PlayerStatus status;
 
   final UnmodifiableListView<Track> queue;
 
   Track? get currentTrack =>
       index != null && queue.isNotEmpty ? queue[index!] : null;
 
+  bool get hasPrevious => index != null && queue.isNotEmpty;
+  Track? get previousTrack => hasPrevious ? queue[index! - 1] : null;
+
+  bool get hasNext => index != null && index! <= queue.length;
+  Track? get nextTrack => hasNext ? queue[index! + 1] : null;
+
   const PlayerState({
     required this.playing,
-    required this.processingState,
+    required this.status,
     this.index,
     required this.queue,
   });
 
   PlayerState.initial()
       : playing = false,
-        processingState = ProcessingState.idle,
+        status = PlayerStatus.stopped,
         index = null,
         queue = UnmodifiableListView([]);
 
   PlayerState copyWith({
     bool? playing,
-    ProcessingState? processingState,
+    PlayerStatus? status,
     int? index,
     UnmodifiableListView<Track>? queue,
   }) {
     return PlayerState(
       playing: playing ?? this.playing,
-      processingState: processingState ?? this.processingState,
+      status: status ?? this.status,
       index: index ?? this.index,
       queue: queue ?? this.queue,
     );
   }
 
   @override
-  List<Object?> get props => [playing, processingState, index, queue];
+  List<Object?> get props => [playing, status, index, queue];
 }
