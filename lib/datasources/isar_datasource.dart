@@ -26,6 +26,12 @@ class IsarDataSource {
     });
   }
 
+  Future<void> clearTracks() async {
+    return await _isar.writeTxn(() async {
+      return await _isar.tracks.clear();
+    });
+  }
+
   Future<List<int>> saveTracks(List<Track> tracks) async {
     return await _isar.writeTxn(() async => _isar.tracks.putAll(tracks));
   }
