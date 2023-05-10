@@ -26,13 +26,12 @@ class _PlaybackControlsState extends State<PlaybackControls>
   @override
   void initState() {
     final player = context.read<PlayerCubit>();
-    // _controller.value = _player.playing ? 1 : 0;
+    _controller.value = player.state.playing ? 0 : 1;
     _subscription = player.stream.listen((event) {
-      print('Playing ${event.playing}');
       if (event.playing) {
-        _controller.forward(from: _controller.value);
-      } else {
         _controller.reverse(from: _controller.value);
+      } else {
+        _controller.forward(from: _controller.value);
       }
     });
     super.initState();
