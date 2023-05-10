@@ -9,6 +9,7 @@ import 'package:vibr/datasources/files_types/flac_info_extractor.dart';
 import 'package:vibr/datasources/files_types/mp3_info_extractor.dart';
 import 'package:vibr/datasources/isar_datasource.dart';
 import 'package:vibr/models/track.dart';
+import 'package:vibr/player/player_cubit.dart';
 
 import 'color_schemes.g.dart';
 import 'datasources/filesystem_datasource.dart';
@@ -49,8 +50,11 @@ class VibrApp extends StatelessWidget {
         RepositoryProvider.value(value: fs),
         Provider(create: (context) => AudioPlayer())
       ],
-      child: BlocProvider(
-        create: (_) => PageCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => PageCubit()),
+          BlocProvider(create: (_) => PlayerCubit())
+        ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.dark,

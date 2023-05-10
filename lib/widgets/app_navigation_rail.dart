@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/player/player_cubit.dart';
 
 import '../models/models.dart';
 import '../pages/page_cubit.dart';
@@ -21,7 +22,8 @@ class AppNavigationRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final track = context.select((PageCubit cubit) => cubit.state.currentTrack);
+    final currentTrack =
+        context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     return LayoutBuilder(
       builder: (context, constraint) => SingleChildScrollView(
         child: ConstrainedBox(
@@ -37,8 +39,8 @@ class AppNavigationRail extends StatelessWidget {
                   _buildNavigationRailDestination(context, page)
               ],
               extended: extended,
-              trailing: showPlayer && track != null
-                  ? _buildPlayer(track, extended)
+              trailing: showPlayer && currentTrack != null
+                  ? _buildPlayer(currentTrack, extended)
                   : null,
             ),
           ),

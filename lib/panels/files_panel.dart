@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:vibr/player/player_cubit.dart';
 
 import '../datasources/filesystem_datasource.dart';
 import '../datasources/isar_datasource.dart';
@@ -39,6 +40,9 @@ class _FilesPanelState extends State<FilesPanel> {
                     title: Text(track.title),
                     subtitle: Text(track.artist),
                     trailing: Text(track.format?.type ?? 'Unknown'),
+                    onTap: () {
+                      context.read<PlayerCubit>().add(track);
+                    },
                   ))
               .toList(),
         );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/player/player_cubit.dart';
 
 import '../pages/page_cubit.dart';
 import '../pages/page_state.dart';
@@ -25,8 +26,8 @@ class _PlaybackControlsState extends State<PlaybackControls>
 
   @override
   void initState() {
-    final status = context.read<PageCubit>().state.status;
-    _controller.value = status == AppStatus.playing ? 1 : 0;
+    final playing = context.read<PlayerCubit>().state.playing;
+    _controller.value = playing ? 1 : 0;
     _player = context.read<AudioPlayer>();
     super.initState();
   }
@@ -59,14 +60,14 @@ class _PlaybackControlsState extends State<PlaybackControls>
     return IconButton(
       key: ValueKey('play-pause'),
       onPressed: () {
-        final cubit = context.read<PageCubit>();
-        if (cubit.state.status == AppStatus.paused) {
-          _player.play();
+        final cubit = context.read<PlayerCubit>();
+        if (cubit.state.playing) {
           _controller.forward(from: _controller.value);
-        } else if (cubit.state.status == AppStatus.playing) {
+        } else {
           _player.pause();
           _controller.reverse(from: _controller.value);
         }
+        cubit.playPause();
       },
       icon: AnimatedIcon(
         size: widget.size,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/player/player_cubit.dart';
 
 import '../pages/page_cubit.dart';
 import '../widgets/app_navigation_rail.dart';
@@ -12,6 +13,8 @@ class DesktopScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.select((PageCubit cubit) => cubit.state);
+    final currentTrack =
+        context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     final badgeColor = Theme.of(context).colorScheme.tertiary;
     return Scaffold(
         appBar: AppBar(
@@ -46,12 +49,12 @@ class DesktopScaffold extends StatelessWidget {
                         child: state.current.builder()),
                   ),
                 )),
-            if (state.currentTrack != null)
+            if (currentTrack != null)
               Flexible(
                 flex: 1,
                 child: ListView(
                   children: [
-                    LargePlayer(state.currentTrack!),
+                    LargePlayer(currentTrack),
                     Lyrics(),
                   ],
                 ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/pages/page_state.dart';
+import 'package:vibr/player/player_cubit.dart';
 
+import '../models/models.dart';
 import '../pages/page_cubit.dart';
 import '../pages/pages.dart';
 import '../widgets/navigation_item.dart';
@@ -11,8 +14,9 @@ class MobileScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<PageCubit>();
     final state = context.select((PageCubit cubit) => cubit.state);
+    final currentTrack =
+        context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     final badgeColor = Theme.of(context).colorScheme.tertiary;
     return Scaffold(
       appBar: AppBar(
@@ -27,33 +31,32 @@ class MobileScaffold extends StatelessWidget {
         ],
       ),
       body: state.current.builder(),
-      bottomNavigationBar: _buildNavigationBar(cubit),
+      bottomNavigationBar: _buildNavBar(context, currentTrack, state),
     );
   }
 
-  _buildNavigationBar(PageCubit cubit) {
-    final track = cubit.state.currentTrack;
+  Column _buildNavBar(
+      BuildContext context, Track? currentTrack, PageState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (track != null) SmallHorizontalPlayer(track),
+        if (currentTrack != null) SmallHorizontalPlayer(currentTrack),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: pages.asMap().entries.map((e) {
-            return _buildNavigationItem(cubit, e.value, e.key);
+            final index = e.key;
+            final page = e.value;
+            return NavigationItem(
+              selected: state.index == index,
+              icon: page.icon,
+              selectedIcon: page.selectedIcon,
+              onPressed: () {
+                context.read<PageCubit>().setIndex(index);
+              },
+            );
           }).toList(),
         ),
       ],
-    );
-  }
-
-  NavigationItem _buildNavigationItem(
-      PageCubit cubit, AppPage page, int index) {
-    return NavigationItem(
-      selected: cubit.state.index == index,
-      icon: page.icon,
-      selectedIcon: page.selectedIcon,
-      onPressed: () => cubit.setIndex(index),
     );
   }
 }

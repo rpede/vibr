@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/player/player_cubit.dart';
 
-import '../pages/page_cubit.dart';
 import '../panels/now_playing.dart';
 
 class NowPlayingScaffold extends StatelessWidget {
@@ -9,7 +9,8 @@ class NowPlayingScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final track = context.select((PageCubit cubit) => cubit.state.currentTrack);
+    final track =
+        context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     return Scaffold(
       appBar: AppBar(title: const Text('Now Playing')),
       body: track == null

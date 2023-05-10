@@ -3,7 +3,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vibr/widgets/section_header.dart';
 
-import '../song.dart';
+class Song {
+  final String artist;
+  final String title;
+  final String? image;
+
+  const Song({required this.artist, required this.title, this.image});
+}
 
 class ExplorePanel extends StatelessWidget {
   const ExplorePanel({super.key});
