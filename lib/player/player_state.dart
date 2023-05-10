@@ -20,11 +20,12 @@ class PlayerState extends Equatable {
   Track? get currentTrack =>
       index != null && queue.isNotEmpty ? queue[index!] : null;
 
-  PlayerState(
-      {required this.playing,
-      required this.processingState,
-      this.index,
-      required this.queue});
+  const PlayerState({
+    required this.playing,
+    required this.processingState,
+    this.index,
+    required this.queue,
+  });
 
   PlayerState.initial()
       : playing = false,

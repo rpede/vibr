@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isar/isar.dart';
@@ -36,6 +38,8 @@ void main() async {
 
 const headlineFont = 'Audiowide';
 
+final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
 class VibrApp extends StatelessWidget {
   final IsarDataSource db;
   final FilesystemDataSource fs;
@@ -48,7 +52,6 @@ class VibrApp extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: db),
         RepositoryProvider.value(value: fs),
-        Provider(create: (context) => AudioPlayer())
       ],
       child: MultiBlocProvider(
         providers: [
@@ -56,6 +59,7 @@ class VibrApp extends StatelessWidget {
           BlocProvider(create: (_) => PlayerCubit())
         ],
         child: MaterialApp(
+          scaffoldMessengerKey: scaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.dark,
           theme: theme,
