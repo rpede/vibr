@@ -45,14 +45,14 @@ const List<AppPage> pages = [
   ),
   AppPage(
     title: 'Files',
-    builder: ScannerPanel.new,
+    builder: FilesPanel.new,
     icon: Icons.folder_outlined,
     selectedIcon: Icons.folder,
   ),
-  // AppPage(
-  //   title: 'Files',
-  //   builder: FilesPanel.new,
-  //   icon: Icons.folder_outlined,
-  //   selectedIcon: Icons.folder,
-  // ),
+  AppPage(
+    title: 'Scan',
+    builder: ScannerPanel.new,
+    icon: Icons.radar_outlined,
+    selectedIcon: Icons.radar,
+  ),
 ];
