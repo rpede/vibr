@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/cubit/app_cubit.dart';
-import 'package:vibr/cubit/app_state.dart';
 
+import '../pages/page_cubit.dart';
 import '../widgets/app_navigation_rail.dart';
 import '../widgets/large_player.dart';
 import '../widgets/lyric.dart';
@@ -12,11 +11,11 @@ class DesktopScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.select((AppCubit cubit) => cubit.state);
+    final state = context.select((PageCubit cubit) => cubit.state);
     final badgeColor = Theme.of(context).colorScheme.tertiary;
     return Scaffold(
         appBar: AppBar(
-          title: Text(state.currentPage.title),
+          title: Text(state.current.title),
           actions: [
             IconButton(
                 onPressed: () {},
@@ -30,9 +29,9 @@ class DesktopScaffold extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             AppNavigationRail(
-              selectedIndex: state.pageIndex,
+              selectedIndex: state.index,
               onDestinationSelected: (index) {
-                context.read<AppCubit>().setPageIndex(index);
+                context.read<PageCubit>().setIndex(index);
               },
               extended: true,
               showPlayer: false,
@@ -44,7 +43,7 @@ class DesktopScaffold extends StatelessWidget {
                   child: Center(
                     child: ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 1200),
-                        child: state.currentPage.builder()),
+                        child: state.current.builder()),
                   ),
                 )),
             if (state.currentTrack != null)

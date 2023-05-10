@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/cubit/app_cubit.dart';
 import 'package:vibr/models/track.dart';
 import '../scaffolds/now_playing_scaffold.dart';
 import 'playback_controls.dart';

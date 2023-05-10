@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vibr/panels/files_panel.dart';
 
-import 'panels/panels.dart';
-import 'scanner/scanner_panel.dart';
+import '../panels/panels.dart';
+import '../scanner/scanner_panel.dart';
 
-class AppPage {
+class AppPage extends Equatable {
   final String title;
   final IconData icon;
   final IconData selectedIcon;
@@ -16,6 +17,9 @@ class AppPage {
     required this.selectedIcon,
     required this.builder,
   });
+
+  @override
+  List<Object?> get props => [title, icon, selectedIcon];
 }
 
 const List<AppPage> pages = [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../widgets/app_navigation_rail.dart';
-import '../pages.dart';
+import '../pages/pages.dart';
 
 class TabletScaffold extends StatefulWidget {
   const TabletScaffold({super.key});
