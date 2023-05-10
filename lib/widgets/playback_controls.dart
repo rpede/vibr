@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
-import 'package:vibr/player/player_cubit.dart';
+import 'dart:async';
 
-import '../pages/page_cubit.dart';
-import '../pages/page_state.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../player/player_cubit.dart';
 import 'glow.dart';
 
 class PlaybackControls extends StatefulWidget {
@@ -22,19 +21,27 @@ class _PlaybackControlsState extends State<PlaybackControls>
   late final _controller = AnimationController(
       vsync: this, duration: const Duration(milliseconds: 200));
   late final _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
-  late final AudioPlayer _player;
+  late final StreamSubscription _subscription;
 
   @override
   void initState() {
-    final playing = context.read<PlayerCubit>().state.playing;
-    _controller.value = playing ? 1 : 0;
-    _player = context.read<AudioPlayer>();
+    final player = context.read<PlayerCubit>();
+    // _controller.value = _player.playing ? 1 : 0;
+    _subscription = player.stream.listen((event) {
+      print('Playing ${event.playing}');
+      if (event.playing) {
+        _controller.forward(from: _controller.value);
+      } else {
+        _controller.reverse(from: _controller.value);
+      }
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _subscription.cancel();
     super.dispose();
   }
 
@@ -56,18 +63,10 @@ class _PlaybackControlsState extends State<PlaybackControls>
 
   _buildPlayPause(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    // final state = Provider.of<AppState>(context);
     return IconButton(
       key: ValueKey('play-pause'),
       onPressed: () {
-        final cubit = context.read<PlayerCubit>();
-        if (cubit.state.playing) {
-          _controller.forward(from: _controller.value);
-        } else {
-          _player.pause();
-          _controller.reverse(from: _controller.value);
-        }
-        cubit.playPause();
+        context.read<PlayerCubit>().playPause();
       },
       icon: AnimatedIcon(
         size: widget.size,
