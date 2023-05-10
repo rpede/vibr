@@ -52,7 +52,6 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
         status: ScannerStatus.in_progress,
         numberOfTracks: 0,
       ));
-      int numberOfTracks = 0;
       try {
         await _db.clearTracks();
         await _fs
@@ -60,18 +59,16 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
             .bufferCount(20)
             .asBroadcastStream()
             .forEach((tracks) async {
-          numberOfTracks += tracks.length;
-          emit(state.copyWith(
-            numberOfTracks: numberOfTracks,
-          ));
           await _db.saveTracks(tracks);
         });
         emit(state.copyWith(
-            status: ScannerStatus.done, numberOfTracks: numberOfTracks));
+          status: ScannerStatus.done,
+          numberOfTracks: await _db.countTracks(),
+        ));
       } catch (error) {
         emit(state.copyWith(
-          numberOfTracks: numberOfTracks,
           status: ScannerStatus.done,
+          numberOfTracks: await _db.countTracks(),
           error: error.toString(),
         ));
       }
