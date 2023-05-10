@@ -27,3 +27,12 @@ final darkTheme = ThemeData(
     headlineSmall: TextStyle(fontFamily: headlineFont),
   ),
 );
+
+extension ThemeBuildContextExtension on BuildContext {
+  Color colorTertiary() {
+    return Theme.of(this).colorScheme.tertiary;
+  }
+  Color colorTertiaryContainer() {
+    return Theme.of(this).colorScheme.tertiaryContainer;
+  }
+}

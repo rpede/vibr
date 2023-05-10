@@ -30,10 +30,10 @@ class PlayerState extends Equatable {
   Track? get currentTrack =>
       index != null && queue.isNotEmpty ? queue[index!] : null;
 
-  bool get hasPrevious => index != null && queue.isNotEmpty;
+  bool get hasPrevious => index != null && index! > 0 && queue.isNotEmpty;
   Track? get previousTrack => hasPrevious ? queue[index! - 1] : null;
 
-  bool get hasNext => index != null && index! <= queue.length;
+  bool get hasNext => index != null && index! + 1 < queue.length;
   Track? get nextTrack => hasNext ? queue[index! + 1] : null;
 
   const PlayerState({

@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/theme.dart';
 
 import '../player/player_cubit.dart';
 import 'glow.dart';
@@ -51,17 +53,15 @@ class _PlaybackControlsState extends State<PlaybackControls>
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (widget.showSkip)
-            _buildSkip(context, Icons.skip_previous_outlined),
+          if (widget.showSkip) _buildSkipPrev(context),
           _buildPlayPause(context),
-          if (widget.showSkip) _buildSkip(context, Icons.skip_next_outlined),
+          if (widget.showSkip) _buildSkipNext(context),
         ],
       ),
     );
   }
 
   _buildPlayPause(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return IconButton(
       key: ValueKey('play-pause'),
       onPressed: () {
@@ -69,7 +69,7 @@ class _PlaybackControlsState extends State<PlaybackControls>
       },
       icon: AnimatedIcon(
         size: widget.size,
-        color: colorScheme.tertiary,
+        color: context.colorTertiary(),
         // shadows: [BoxShadow(color: colorScheme.tertiary, blurRadius: 10)],
         icon: AnimatedIcons.pause_play,
         progress: _animation,
@@ -77,16 +77,50 @@ class _PlaybackControlsState extends State<PlaybackControls>
     );
   }
 
-  _buildSkip(BuildContext context, IconData icon) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return IconButton(
-      onPressed: () {},
-      icon: Icon(
-        icon,
-        size: widget.size,
-        color: colorScheme.tertiary,
-        // shadows: [BoxShadow(color: colorScheme.tertiary, blurRadius: 10)],
-      ),
-    );
+  _buildSkipNext(BuildContext context) {
+    final hasNext = context.select((PlayerCubit cubit) => cubit.state.hasNext);
+    if (hasNext) {
+      return IconButton(
+        onPressed: () => context.read<PlayerCubit>().skipNext(),
+        icon: Icon(
+          Icons.skip_next_outlined,
+          size: widget.size,
+          color: context.colorTertiary(),
+        ),
+      );
+    } else {
+      return IconButton(
+        onPressed: null,
+        icon: Icon(
+          Icons.skip_next_outlined,
+          size: widget.size,
+          color: context.colorTertiaryContainer(),
+        ),
+      );
+    }
+  }
+
+  _buildSkipPrev(BuildContext context) {
+    final hasPrevious =
+        context.select((PlayerCubit cubit) => cubit.state.hasPrevious);
+    if (hasPrevious) {
+      return IconButton(
+        onPressed: () => context.read<PlayerCubit>().skipPrevious(),
+        icon: Icon(
+          Icons.skip_previous_outlined,
+          size: widget.size,
+          color: context.colorTertiary(),
+        ),
+      );
+    } else {
+      return IconButton(
+        onPressed: null,
+        icon: Icon(
+          Icons.skip_previous_outlined,
+          size: widget.size,
+          color: context.colorTertiaryContainer(),
+        ),
+      );
+    }
   }
 }

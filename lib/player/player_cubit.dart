@@ -64,4 +64,18 @@ class PlayerCubit extends Cubit<PlayerState> {
   playPause() {
     state.playing ? _player.pause() : _player.resume();
   }
+
+  skipNext() {
+    if (state.hasNext) {
+      _player.play(ap.DeviceFileSource(state.nextTrack!.source));
+      emit(state.copyWith(index: state.index! + 1));
+    }
+  }
+
+  skipPrevious() {
+    if (state.hasPrevious) {
+      _player.play(ap.DeviceFileSource(state.previousTrack!.source));
+      emit(state.copyWith(index: state.index! - 1));
+    }
+  }
 }
