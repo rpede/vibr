@@ -17,6 +17,7 @@ class Track {
   int? year;
   int? durationInSeconds;
   AudioFormat? format;
+  // @Index(unique: true)
   String source;
 
   String? image;

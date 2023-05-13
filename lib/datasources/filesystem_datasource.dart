@@ -18,24 +18,12 @@ class FilesystemDataSource {
   }
 
   Stream<Track> findTracks(String path) {
-    return getFiles(path)
-        .asyncMap((file) => extractMetadata(file))
+    return Directory.fromUri(Uri.parse(path))
+        .list(recursive: true)
+        .where((entity) => entity is File)
+        .asyncMap((file) => extractMetadata(file as File))
         .where((track) => track != null)
         .map((track) => track as Track);
-  }
-
-  Stream<File> getFiles(String path) {
-    return scanDirectory(Directory.fromUri(Uri.parse(path)));
-  }
-
-  Stream<File> scanDirectory(Directory dir) async* {
-    await for (final entity in dir.list(recursive: true)) {
-      if (entity is Directory) {
-        yield* scanDirectory(entity);
-      } else if (entity is File) {
-        yield entity;
-      }
-    }
   }
 
   Future<Track?> extractMetadata(File file) async {
