@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:vibr/player/player_cubit.dart';
 
 import '../pages/page_cubit.dart';
+import '../player/large_player.dart';
 import '../widgets/app_navigation_rail.dart';
-import '../widgets/large_player.dart';
 import '../widgets/lyric.dart';
 
 class DesktopScaffold extends StatelessWidget {

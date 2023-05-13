@@ -6,8 +6,8 @@ import 'package:vibr/player/player_cubit.dart';
 import '../models/models.dart';
 import '../pages/page_cubit.dart';
 import '../pages/pages.dart';
+import '../player/small_horizontal_player.dart';
 import '../widgets/navigation_item.dart';
-import '../widgets/small_horizontal_player.dart';
 
 class MobileScaffold extends StatelessWidget {
   const MobileScaffold({super.key});

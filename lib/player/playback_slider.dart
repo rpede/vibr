@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'glow.dart';
+import '../widgets/glow.dart';
 
 class PlaybackSlider extends StatelessWidget {
   const PlaybackSlider({

@@ -29,10 +29,11 @@ final darkTheme = ThemeData(
 );
 
 extension ThemeBuildContextExtension on BuildContext {
-  Color colorTertiary() {
-    return Theme.of(this).colorScheme.tertiary;
+  ColorScheme color() {
+    return Theme.of(this).colorScheme;
   }
-  Color colorTertiaryContainer() {
-    return Theme.of(this).colorScheme.tertiaryContainer;
+
+  TextTheme text() {
+    return Theme.of(this).textTheme;
   }
 }

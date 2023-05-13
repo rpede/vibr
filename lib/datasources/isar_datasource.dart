@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
 
+import '../models/album.dart';
 import '../models/models.dart';
 
 class IsarDataSource {
@@ -26,14 +27,14 @@ class IsarDataSource {
     });
   }
 
+  Future<List<int>> saveTracks(List<Track> tracks) async {
+    return await _isar.writeTxn(() async => _isar.tracks.putAll(tracks));
+  }
+
   Future<void> clearTracks() async {
     return await _isar.writeTxn(() async {
       return await _isar.tracks.clear();
     });
-  }
-
-  Future<List<int>> saveTracks(List<Track> tracks) async {
-    return await _isar.writeTxn(() async => _isar.tracks.putAll(tracks));
   }
 
   Future<int> countTracks() {
@@ -48,5 +49,19 @@ class IsarDataSource {
         .thenByTitle()
         .build()
         .watch(fireImmediately: true);
+  }
+
+  Future<List<String>> getArtists() async {
+    final tracks = await _isar.tracks.where().distinctByArtist().findAll();
+    return tracks.map((e) => e.artist).toList();
+  }
+
+  Future<List<Album>> getAlbums() async {
+    final tracks = await _isar.tracks.where().distinctByArtist().distinctByAlbum().findAll();
+    return tracks.map((e) => Album.fromTrack(e)).toList();
+  }
+
+  Future<List<Track>> getTracks() async {
+    return await _isar.tracks.where().findAll();
   }
 }

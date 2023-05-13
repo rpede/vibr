@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vibr/models/track.dart';
-import '../widgets/large_player.dart';
+import 'large_player.dart';
 import '../widgets/lyric.dart';
 
 class NowPlaying extends StatelessWidget {

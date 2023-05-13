@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:vibr/theme.dart';
 
 import '../player/player_cubit.dart';
-import 'glow.dart';
+import '../widgets/glow.dart';
 
 class PlaybackControls extends StatefulWidget {
   final double size;
@@ -69,7 +69,7 @@ class _PlaybackControlsState extends State<PlaybackControls>
       },
       icon: AnimatedIcon(
         size: widget.size,
-        color: context.colorTertiary(),
+        color: context.color().tertiary,
         // shadows: [BoxShadow(color: colorScheme.tertiary, blurRadius: 10)],
         icon: AnimatedIcons.pause_play,
         progress: _animation,
@@ -85,7 +85,7 @@ class _PlaybackControlsState extends State<PlaybackControls>
         icon: Icon(
           Icons.skip_next_outlined,
           size: widget.size,
-          color: context.colorTertiary(),
+          color: context.color().tertiary,
         ),
       );
     } else {
@@ -94,7 +94,7 @@ class _PlaybackControlsState extends State<PlaybackControls>
         icon: Icon(
           Icons.skip_next_outlined,
           size: widget.size,
-          color: context.colorTertiaryContainer(),
+          color: context.color().tertiaryContainer,
         ),
       );
     }
@@ -109,7 +109,7 @@ class _PlaybackControlsState extends State<PlaybackControls>
         icon: Icon(
           Icons.skip_previous_outlined,
           size: widget.size,
-          color: context.colorTertiary(),
+          color: context.color().tertiary,
         ),
       );
     } else {
@@ -118,7 +118,7 @@ class _PlaybackControlsState extends State<PlaybackControls>
         icon: Icon(
           Icons.skip_previous_outlined,
           size: widget.size,
-          color: context.colorTertiaryContainer(),
+          color: context.color().tertiaryContainer,
         ),
       );
     }

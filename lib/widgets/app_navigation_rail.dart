@@ -5,7 +5,7 @@ import 'package:vibr/player/player_cubit.dart';
 import '../models/models.dart';
 import '../pages/page_cubit.dart';
 import '../pages/pages.dart';
-import 'small_vertical_player.dart';
+import '../player/small_vertical_player.dart';
 
 class AppNavigationRail extends StatelessWidget {
   final int selectedIndex;
