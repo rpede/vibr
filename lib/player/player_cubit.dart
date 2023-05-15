@@ -104,4 +104,28 @@ class PlayerCubit extends Cubit<PlayerState> {
     newQueue.insert(newIndex, track);
     emit(state.copyWith(queue: UnmodifiableListView(newQueue)));
   }
+
+  remove(int index) {
+    final newQueue = UnmodifiableListView([...state.queue]..removeAt(index));
+    int? newIndex;
+    if (index == state.index) {
+      if (state.hasNext) {
+        _player.play(ap.DeviceFileSource(state.nextTrack!.source));
+        newIndex = index + 1;
+      } else {
+        _player.stop();
+        newIndex = null;
+      }
+    } else if (state.index != null && state.index! > index) {
+      newIndex = state.index! - 1;
+    } else {
+      newIndex = index;
+    }
+    emit(PlayerState(
+      playing: state.playing,
+      status: state.status,
+      queue: newQueue,
+      index: newIndex,
+    ));
+  }
 }
