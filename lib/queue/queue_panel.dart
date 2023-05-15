@@ -18,11 +18,7 @@ class QueuePanel extends StatelessWidget {
       children: state.queue
           .asMap()
           .entries
-          .map((e) => QueueTile(
-                index: e.key,
-                selected: state.index == e.key,
-                e.value,
-              ))
+          .map((e) => QueueTile(index: e.key, e.value))
           .toList(),
     );
   }

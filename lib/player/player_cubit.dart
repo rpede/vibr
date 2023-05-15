@@ -5,21 +5,16 @@ import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:vibr/main.dart';
-import 'package:vibr/models/album.dart';
 
-import '../models/track.dart';
+import '../main.dart';
+import '../models/models.dart';
 import 'player_state.dart';
 
 class PlayerCubit extends Cubit<PlayerState> {
-  // late final just_audio.AudioPlayer _player;
-  // late final just_audio.ConcatenatingAudioSource _source;
   final _player = ap.AudioPlayer();
   final subscriptions = CompositeSubscription();
 
   PlayerCubit() : super(PlayerState.initial()) {
-    // _checkLinuxSupport();
-
     subscriptions.add(_player.onPlayerStateChanged.listen((event) {
       final status =
           PlayerStatus.values.firstWhere((status) => status.name == event.name);
@@ -53,7 +48,8 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   void add(Track track) {
-    final queue = UnmodifiableListView([...state.queue, track]);
+    final queue =
+        UnmodifiableListView([...state.queue, QueuedTrack.fromTrack(track)]);
     if ([PlayerStatus.completed, PlayerStatus.stopped].contains(state.status)) {
       _player.play(ap.DeviceFileSource(track.source));
       emit(state.copyWith(queue: queue, index: queue.length - 1));
@@ -64,10 +60,11 @@ class PlayerCubit extends Cubit<PlayerState> {
 
   void addAll(List<Track> tracks) {
     if (tracks.isEmpty) return;
-    final queue = UnmodifiableListView([...state.queue, ...tracks]);
+    final queue = UnmodifiableListView(
+        [...state.queue, ...tracks.map(QueuedTrack.fromTrack)]);
     if ([PlayerStatus.completed, PlayerStatus.stopped].contains(state.status)) {
-      _player.play(ap.DeviceFileSource(queue.first.source));
-      emit(state.copyWith(queue: queue, index: queue.length - 1));
+      _player.play(ap.DeviceFileSource(queue.first.track.source));
+      emit(state.copyWith(queue: queue, index: state.queue.length));
     } else {
       emit(state.copyWith(queue: queue));
     }
@@ -93,16 +90,20 @@ class PlayerCubit extends Cubit<PlayerState> {
 
   void playFromQueue(int index) {
     if (index < state.queue.length) {
-      _player.play(ap.DeviceFileSource(state.queue[index].source));
+      _player.play(ap.DeviceFileSource(state.queue[index].track.source));
       emit(state.copyWith(index: index));
     }
   }
 
   moveInQueue(int oldIndex, int newIndex) {
+    final queuedTrack = state.index != null ? state.queue[state.index!] : null;
     final newQueue = [...state.queue];
     final track = newQueue.removeAt(oldIndex);
     newQueue.insert(newIndex, track);
-    emit(state.copyWith(queue: UnmodifiableListView(newQueue)));
+    emit(state.copyWith(
+      queue: UnmodifiableListView(newQueue),
+      index: queuedTrack != null ? newQueue.indexOf(queuedTrack) : null,
+    ));
   }
 
   remove(int index) {

@@ -6,16 +6,18 @@ import '../models/models.dart';
 import '../player/player_cubit.dart';
 
 class QueueTile extends StatelessWidget {
-  final Track track;
+  final QueuedTrack queuedTrack;
   final int index;
-  final bool selected;
-  QueueTile(this.track, {required this.index, required this.selected})
-      : super(key: Key('queue-tile-${track.id}'));
+  QueueTile(this.queuedTrack, {required this.index})
+      : super(key: Key(queuedTrack.queueId));
 
   @override
   Widget build(BuildContext context) {
+    final selected =
+        context.select((PlayerCubit player) => player.state.index) == index;
+    final track = queuedTrack.track;
     return Dismissible(
-      key: Key('dismissible-${track.id}'),
+      key: Key('dismissible-${queuedTrack.queueId}'),
       background: Container(color: Colors.red),
       onDismissed: (direction) => context.read<PlayerCubit>().remove(index),
       child: ListTile(
