@@ -52,7 +52,7 @@ class PlayerCubit extends Cubit<PlayerState> {
     await _player.dispose();
   }
 
-  add(Track track) {
+  void add(Track track) {
     final queue = UnmodifiableListView([...state.queue, track]);
     if ([PlayerStatus.completed, PlayerStatus.stopped].contains(state.status)) {
       _player.play(ap.DeviceFileSource(track.source));
@@ -73,21 +73,28 @@ class PlayerCubit extends Cubit<PlayerState> {
     }
   }
 
-  playPause() {
+  void playPause() {
     state.playing ? _player.pause() : _player.resume();
   }
 
-  skipNext() {
+  void skipNext() {
     if (state.hasNext) {
       _player.play(ap.DeviceFileSource(state.nextTrack!.source));
       emit(state.copyWith(index: state.index! + 1));
     }
   }
 
-  skipPrevious() {
+  void skipPrevious() {
     if (state.hasPrevious) {
       _player.play(ap.DeviceFileSource(state.previousTrack!.source));
       emit(state.copyWith(index: state.index! - 1));
+    }
+  }
+
+  void playFromQueue(int index) {
+    if (index < state.queue.length) {
+      _player.play(ap.DeviceFileSource(state.queue[index].source));
+      emit(state.copyWith(index: index));
     }
   }
 }

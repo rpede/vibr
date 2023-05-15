@@ -6,12 +6,13 @@ import '../player/player_cubit.dart';
 
 class TrackTile extends StatelessWidget {
   final Track track;
-  const TrackTile(this.track, {super.key});
+  final VoidCallback? onTap;
+  const TrackTile(this.track, {super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => context.read<PlayerCubit>().add(track),
+      onTap: onTap ?? () => context.read<PlayerCubit>().add(track),
       leading: SizedBox(
           width: 50,
           height: 50,
