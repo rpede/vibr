@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vibr/main.dart';
+import 'package:vibr/models/album.dart';
 
 import '../models/track.dart';
 import 'player_state.dart';
@@ -55,6 +56,17 @@ class PlayerCubit extends Cubit<PlayerState> {
     final queue = UnmodifiableListView([...state.queue, track]);
     if ([PlayerStatus.completed, PlayerStatus.stopped].contains(state.status)) {
       _player.play(ap.DeviceFileSource(track.source));
+      emit(state.copyWith(queue: queue, index: queue.length - 1));
+    } else {
+      emit(state.copyWith(queue: queue));
+    }
+  }
+
+  void addAll(List<Track> tracks) {
+    if (tracks.isNotEmpty) return;
+    final queue = UnmodifiableListView([...state.queue, ...tracks]);
+    if ([PlayerStatus.completed, PlayerStatus.stopped].contains(state.status)) {
+      _player.play(ap.DeviceFileSource(queue.first.source));
       emit(state.copyWith(queue: queue, index: queue.length - 1));
     } else {
       emit(state.copyWith(queue: queue));

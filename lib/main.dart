@@ -17,8 +17,8 @@ import 'datasources/filesystem_datasource.dart';
 import 'models/source.dart';
 import 'pages/page_cubit.dart';
 import 'scaffolds/app_scaffold.dart';
-import 'scroll_wrapper.dart';
 import 'theme.dart';
+import 'scroll.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

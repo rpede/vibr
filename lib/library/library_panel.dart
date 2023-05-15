@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vibr/library/artist_list_scaffold.dart';
-import 'package:vibr/library/song_list_scaffold.dart';
 import 'package:vibr/theme.dart';
+
+import '../scroll.dart';
+import 'album_list_scaffold.dart';
+import 'artist_list_scaffold.dart';
+import 'song_list_scaffold.dart';
 
 class LibraryPanel extends StatelessWidget {
   LibraryPanel({super.key});
@@ -9,7 +12,7 @@ class LibraryPanel extends StatelessWidget {
   final items = {
     'Artists': ArtistListScaffold.new,
     'Songs': SongListScaffold.new,
-    'Albums': null,
+    'Albums': AlbumListScaffold.new,
     'Playlists': null,
   };
 
@@ -17,7 +20,7 @@ class LibraryPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = context.text().headlineLarge;
     return ListView(
-      physics: ClampingScrollPhysics(),
+      physics: scrollPhysics,
       children: [
         SizedBox(height: 32),
         for (final item in items.entries)

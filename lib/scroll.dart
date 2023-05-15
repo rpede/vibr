@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const scrollPhysics = ClampingScrollPhysics();
+
 class StretchingScrollBehavior extends ScrollBehavior {
   @override
   Widget buildOverscrollIndicator(
@@ -13,7 +15,7 @@ class StretchingScrollBehavior extends ScrollBehavior {
   // Set physics to clamping.
   @override
   ScrollPhysics getScrollPhysics(BuildContext context) {
-    return const ClampingScrollPhysics();
+    return scrollPhysics;
   }
 }
 

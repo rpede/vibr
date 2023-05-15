@@ -57,11 +57,42 @@ class IsarDataSource {
   }
 
   Future<List<Album>> getAlbums() async {
-    final tracks = await _isar.tracks.where().distinctByArtist().distinctByAlbum().findAll();
+    final tracks = await _isar.tracks
+        .where()
+        .sortByAlbum()
+        .distinctByArtist()
+        .distinctByAlbum()
+        .findAll();
+    return tracks.map((e) => Album.fromTrack(e)).toList();
+  }
+
+  Future<List<Album>> getAlbumsByArtist(String artist) async {
+    final tracks = await _isar.tracks
+        .where()
+        .artistEqualTo(artist)
+        .sortByAlbum()
+        .distinctByArtist()
+        .distinctByAlbum()
+        .findAll();
     return tracks.map((e) => Album.fromTrack(e)).toList();
   }
 
   Future<List<Track>> getTracks() async {
     return await _isar.tracks.where().findAll();
+  }
+
+  Future<List<Track>> getTracksByAlbum(Album album) async {
+    var query = _isar.tracks.filter().albumEqualTo(album.name);
+    if (album.artist != null) query = query.artistEqualTo(album.artist!);
+    return await query.sortByTitle().findAll();
+  }
+
+  Future<List<Track>> getTracksByArtist(String artist) async {
+    final tracks = await _isar.tracks
+        .filter()
+        .artistEqualTo(artist)
+        .sortByTitle()
+        .findAll();
+    return tracks;
   }
 }
