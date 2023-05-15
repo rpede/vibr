@@ -38,8 +38,8 @@ class _FilesPanelState extends State<FilesPanel> {
           physics: scrollPhysics,
           children: (snapshot.data ?? [])
               .map((track) => ListTile(
-                    title: Text(track.title),
-                    subtitle: Text(track.artist),
+                    title: Text("${track.title} - ${track.artist}"),
+                    subtitle: Text(track.source),
                     trailing: Text(track.format?.type ?? 'Unknown'),
                     onTap: () {
                       context.read<PlayerCubit>().add(track);

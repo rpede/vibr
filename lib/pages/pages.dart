@@ -1,8 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:vibr/panels/files_panel.dart';
+import 'package:vibr/scanner/files_panel.dart';
 
-import '../panels/panels.dart';
+import '../library/library_panel.dart';
+import '../prototype/explore_panel.dart';
+import '../prototype/search_panel.dart';
+import '../prototype/home_panel.dart';
 import '../scanner/scanner_panel.dart';
 
 class AppPage extends Equatable {
