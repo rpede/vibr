@@ -63,7 +63,7 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   void addAll(List<Track> tracks) {
-    if (tracks.isNotEmpty) return;
+    if (tracks.isEmpty) return;
     final queue = UnmodifiableListView([...state.queue, ...tracks]);
     if ([PlayerStatus.completed, PlayerStatus.stopped].contains(state.status)) {
       _player.play(ap.DeviceFileSource(queue.first.source));
@@ -96,5 +96,12 @@ class PlayerCubit extends Cubit<PlayerState> {
       _player.play(ap.DeviceFileSource(state.queue[index].source));
       emit(state.copyWith(index: index));
     }
+  }
+
+  moveInQueue(int oldIndex, int newIndex) {
+    final newQueue = [...state.queue];
+    final track = newQueue.removeAt(oldIndex);
+    newQueue.insert(newIndex, track);
+    emit(state.copyWith(queue: UnmodifiableListView(newQueue)));
   }
 }

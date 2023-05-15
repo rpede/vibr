@@ -11,8 +11,10 @@ class QueuePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final queue = context.select((PlayerCubit player) => player.state.queue);
-    return ListView(
+    return ReorderableListView(
       physics: scrollPhysics,
+      onReorder: (oldIndex, newIndex) =>
+          context.read<PlayerCubit>().moveInQueue(oldIndex, newIndex),
       children: queue
           .asMap()
           .entries

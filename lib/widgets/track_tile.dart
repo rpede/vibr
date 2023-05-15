@@ -7,7 +7,8 @@ import '../player/player_cubit.dart';
 class TrackTile extends StatelessWidget {
   final Track track;
   final VoidCallback? onTap;
-  const TrackTile(this.track, {super.key, this.onTap});
+  final VoidCallback? onLongPress;
+  TrackTile(this.track, {this.onTap, this.onLongPress}) : super(key: ValueKey(track.id));
 
   @override
   Widget build(BuildContext context) {
