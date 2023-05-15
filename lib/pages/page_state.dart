@@ -1,8 +1,5 @@
-import 'dart:collection';
-
 import 'package:equatable/equatable.dart';
 
-import '../models/track.dart';
 import '../pages/pages.dart';
 
 class PageState extends Equatable {

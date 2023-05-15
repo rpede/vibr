@@ -10,12 +10,14 @@ import 'package:vibr/datasources/files_types/flac_info_extractor.dart';
 import 'package:vibr/datasources/files_types/mp3_info_extractor.dart';
 import 'package:vibr/datasources/isar_datasource.dart';
 import 'package:vibr/models/track.dart';
+import 'package:vibr/pages/pages.dart';
 import 'package:vibr/player/player_cubit.dart';
 
 import 'color_schemes.g.dart';
 import 'datasources/filesystem_datasource.dart';
 import 'models/source.dart';
 import 'pages/page_cubit.dart';
+import 'pages/page_state.dart';
 import 'scaffolds/app_scaffold.dart';
 import 'theme.dart';
 import 'scroll.dart';
@@ -73,7 +75,11 @@ class VibrApp extends StatelessWidget {
               const ResponsiveBreakpoint.resize(1400, name: DESKTOP),
             ],
           ),
-          home: const AppScaffold(),
+          home: BlocSelector<PageCubit, PageState, AppPage>(
+            selector: (state) => state.current,
+            builder: (context, page) =>
+                ResponsiveScaffold(title: page.title, body: page.builder()),
+          ),
         ),
       ),
     );

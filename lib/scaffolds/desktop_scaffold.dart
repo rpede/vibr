@@ -8,17 +8,19 @@ import '../widgets/app_navigation_rail.dart';
 import '../widgets/lyric.dart';
 
 class DesktopScaffold extends StatelessWidget {
-  const DesktopScaffold({super.key});
+  final String title;
+  final Widget body;
+
+  const DesktopScaffold({super.key, required this.title, required this.body});
 
   @override
   Widget build(BuildContext context) {
-    final state = context.select((PageCubit cubit) => cubit.state);
     final currentTrack =
         context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     final badgeColor = Theme.of(context).colorScheme.tertiary;
     return Scaffold(
         appBar: AppBar(
-          title: Text(state.current.title),
+          title: Text(title),
           actions: [
             IconButton(
                 onPressed: () {},
@@ -31,22 +33,16 @@ class DesktopScaffold extends StatelessWidget {
         body: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            AppNavigationRail(
-              selectedIndex: state.index,
-              onDestinationSelected: (index) {
-                context.read<PageCubit>().setIndex(index);
-              },
-              extended: true,
-              showPlayer: false,
-            ),
+            const AppNavigationRail(extended: true, showPlayer: false),
             Flexible(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(
                     child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 1200),
-                        child: state.current.builder()),
+                      constraints: const BoxConstraints(maxWidth: 1200),
+                      child: body,
+                    ),
                   ),
                 )),
             if (currentTrack != null)

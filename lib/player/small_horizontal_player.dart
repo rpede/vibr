@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vibr/models/track.dart';
 
-import '../scaffolds/now_playing_scaffold.dart';
+import '../models/models.dart';
+import 'now_playing_scaffold.dart';
 import 'playback_controls.dart';
 
 class SmallHorizontalPlayer extends StatelessWidget {
@@ -14,7 +13,7 @@ class SmallHorizontalPlayer extends StatelessWidget {
     return ListTile(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => NowPlayingScaffold(),
+          builder: (context) => const NowPlayingScaffold(),
         ));
       },
       leading: SizedBox(

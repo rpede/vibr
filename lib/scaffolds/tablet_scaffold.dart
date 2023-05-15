@@ -2,56 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../widgets/app_navigation_rail.dart';
-import '../pages/pages.dart';
+import '../widgets/profile_action.dart';
 
-class TabletScaffold extends StatefulWidget {
-  const TabletScaffold({super.key});
+class TabletScaffold extends StatelessWidget {
+  final String title;
+  final Widget body;
 
-  @override
-  State<TabletScaffold> createState() => _TabletScaffoldState();
-}
-
-class _TabletScaffoldState extends State<TabletScaffold> {
-  int _selectedIndex = 0;
+  const TabletScaffold({super.key, required this.title, required this.body});
 
   @override
   Widget build(BuildContext context) {
-    final page = pages[_selectedIndex];
-    final badgeColor = Theme.of(context).colorScheme.tertiary;
     final responsive = ResponsiveWrapper.of(context);
     final extended = (responsive.isLargerThan(MOBILE) &&
             // responsive.isMobile &&
             responsive.orientation == Orientation.landscape) ||
         responsive.isLargerThan(TABLET);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(page.title),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Badge(
-                  backgroundColor: badgeColor,
-                  child: const Icon(Icons.account_circle_outlined),
-                ))
-          ],
-        ),
-        body: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            AppNavigationRail(
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: (index) => setState(() {
-                _selectedIndex = index;
-              }),
-              extended: extended,
-              showPlayer: true,
-            ),
-            Expanded(
-                child: Padding(
+      appBar: AppBar(
+        title: Text(title),
+        actions: const [ProfileAction()],
+      ),
+      body: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          AppNavigationRail(extended: extended, showPlayer: true),
+          Expanded(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: page.builder(),
-            )),
-          ],
-        ));
+              child: body,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

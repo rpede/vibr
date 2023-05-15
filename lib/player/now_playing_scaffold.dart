@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../player/now_playing.dart';
-import '../player/player_cubit.dart';
+import 'now_playing.dart';
+import 'player_cubit.dart';
 
 class NowPlayingScaffold extends StatelessWidget {
   const NowPlayingScaffold({super.key});

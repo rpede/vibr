@@ -5,19 +5,26 @@ import 'desktop_scaffold.dart';
 import 'mobile_scaffold.dart';
 import 'tablet_scaffold.dart';
 
-class AppScaffold extends StatelessWidget {
-  const AppScaffold({super.key});
+class ResponsiveScaffold extends StatelessWidget {
+  final Widget body;
+  final String title;
+
+  const ResponsiveScaffold({
+    super.key,
+    required this.title,
+    required this.body,
+  });
 
   @override
   Widget build(BuildContext context) {
     var responsive = ResponsiveWrapper.of(context);
     if (responsive.isSmallerThan(TABLET) &&
         responsive.orientation == Orientation.portrait) {
-      return const MobileScaffold();
+      return MobileScaffold(title: title, body: body);
     } else if (responsive.isSmallerThan(DESKTOP)) {
-      return const TabletScaffold();
+      return TabletScaffold(title: title, body: body);
     } else {
-      return const DesktopScaffold();
+      return DesktopScaffold(title: title, body: body);
     }
   }
 }

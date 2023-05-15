@@ -8,20 +8,18 @@ import '../pages/pages.dart';
 import '../player/small_vertical_player.dart';
 
 class AppNavigationRail extends StatelessWidget {
-  final int selectedIndex;
   final bool showPlayer;
   final bool extended;
-  final void Function(int index) onDestinationSelected;
 
-  const AppNavigationRail(
-      {super.key,
-      required this.selectedIndex,
-      required this.onDestinationSelected,
-      required this.showPlayer,
-      required this.extended});
+  const AppNavigationRail({
+    super.key,
+    required this.showPlayer,
+    required this.extended,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final state = context.select((PageCubit cubit) => cubit.state);
     final currentTrack =
         context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     return LayoutBuilder(
@@ -31,9 +29,11 @@ class AppNavigationRail extends StatelessWidget {
           child: IntrinsicHeight(
             child: NavigationRail(
               useIndicator: false,
-              selectedIndex: selectedIndex,
+              selectedIndex: state.index,
               groupAlignment: -1.0,
-              onDestinationSelected: onDestinationSelected,
+              onDestinationSelected: (index) {
+                context.read<PageCubit>().setIndex(index);
+              },
               destinations: [
                 for (final page in pages)
                   _buildNavigationRailDestination(context, page)
