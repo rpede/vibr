@@ -1,3 +1,12 @@
+# Vibr
+
+Simple cross-platform music player with a retro-futuristic design.
+
+## TODO
+
+- Extract metadata in isolates
+- Background support
+- Audio notification
 
 # Material Theme Builder Flutter Export
 
