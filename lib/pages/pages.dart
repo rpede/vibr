@@ -4,9 +4,6 @@ import 'package:vibr/queue/queue_panel.dart';
 import 'package:vibr/scanner/files_panel.dart';
 
 import '../library/library_panel.dart';
-import '../prototype/explore_panel.dart';
-import '../prototype/search_panel.dart';
-import '../prototype/home_panel.dart';
 import '../scanner/scanner_panel.dart';
 
 class AppPage extends Equatable {
@@ -46,25 +43,25 @@ const List<AppPage> pages = [
   //   selectedIcon: Icons.search,
   // ),
   AppPage(
-    title: 'Queue',
+    title: QueuePanel.title,
     builder: QueuePanel.new,
     icon: Icons.queue_music_outlined,
     selectedIcon: Icons.queue_music,
   ),
   AppPage(
-    title: 'Library',
+    title: LibraryPanel.title,
     builder: LibraryPanel.new,
     icon: Icons.interests_outlined,
     selectedIcon: Icons.interests,
   ),
   AppPage(
-    title: 'Files',
+    title: FilesPanel.title,
     builder: FilesPanel.new,
     icon: Icons.folder_outlined,
     selectedIcon: Icons.folder,
   ),
   AppPage(
-    title: 'Scan',
+    title: ScannerPanel.title,
     builder: ScannerPanel.new,
     icon: Icons.radar_outlined,
     selectedIcon: Icons.radar,
