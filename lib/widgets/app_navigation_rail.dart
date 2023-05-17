@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/player/player_cubit.dart';
 
 import '../models/models.dart';
-import '../pages/page_cubit.dart';
 import '../pages/pages.dart';
+import '../player/player_cubit.dart';
 import '../player/small_vertical_player.dart';
 
-class AppNavigationRail extends StatelessWidget {
+class AppNavigationRail extends StatefulWidget {
   final bool showPlayer;
   final bool extended;
 
@@ -18,8 +18,17 @@ class AppNavigationRail extends StatelessWidget {
   });
 
   @override
+  State<AppNavigationRail> createState() => _AppNavigationRailState();
+}
+
+class _AppNavigationRailState extends State<AppNavigationRail> {
+  int _selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    final state = context.select((PageCubit cubit) => cubit.state);
+    final location = GoRouter.of(context).location;
+    final index = pages.indexWhere((page) => location.startsWith(page.path));
+    if (index != -1) _selectedIndex = index;
     final currentTrack =
         context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     return LayoutBuilder(
@@ -29,18 +38,21 @@ class AppNavigationRail extends StatelessWidget {
           child: IntrinsicHeight(
             child: NavigationRail(
               useIndicator: false,
-              selectedIndex: state.index,
+              selectedIndex: _selectedIndex,
               groupAlignment: -1.0,
               onDestinationSelected: (index) {
-                context.read<PageCubit>().setIndex(index);
+                setState(() {
+                  _selectedIndex = index;
+                });
+                context.push(pages[index].path);
               },
               destinations: [
                 for (final page in pages)
                   _buildNavigationRailDestination(context, page)
               ],
-              extended: extended,
-              trailing: showPlayer && currentTrack != null
-                  ? _buildPlayer(currentTrack, extended)
+              extended: widget.extended,
+              trailing: widget.showPlayer && currentTrack != null
+                  ? _buildPlayer(currentTrack, widget.extended)
                   : null,
             ),
           ),

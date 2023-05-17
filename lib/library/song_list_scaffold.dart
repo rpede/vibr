@@ -6,25 +6,23 @@ import '../scroll.dart';
 import '../widgets/track_tile.dart';
 
 class SongListScaffold extends StatelessWidget {
+  static const path = 'songs';
   const SongListScaffold({super.key});
 
   @override
   Widget build(BuildContext context) {
     final db = context.read<IsarDataSource>();
-    return Scaffold(
-      appBar: AppBar(title: Text('Songs')),
-      body: FutureBuilder(
-        future: db.getTracks(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
-          return ListView(
-            physics: scrollPhysics,
-            children:
-                (snapshot.data ?? []).map((track) => TrackTile(track)).toList(),
-          );
-        },
-      ),
+    return FutureBuilder(
+      future: db.getTracks(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return Center(child: CircularProgressIndicator());
+        return ListView(
+          physics: scrollPhysics,
+          children:
+              (snapshot.data ?? []).map((track) => TrackTile(track)).toList(),
+        );
+      },
     );
   }
 }

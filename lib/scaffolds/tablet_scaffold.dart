@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:vibr/widgets/navigator_controls.dart';
 
 import '../widgets/app_navigation_rail.dart';
 import '../widgets/profile_action.dart';
 
 class TabletScaffold extends StatelessWidget {
-  final String title;
   final Widget body;
 
-  const TabletScaffold({super.key, required this.title, required this.body});
+  const TabletScaffold({super.key, required this.body});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,8 @@ class TabletScaffold extends StatelessWidget {
         responsive.isLargerThan(TABLET);
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        leading: NavigationControls(),
+        title: Text('Vibr'),
         actions: const [ProfileAction()],
       ),
       body: Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../pages/page_cubit.dart';
 import '../pages/pages.dart';
 import '../player/player_cubit.dart';
 import '../player/small_horizontal_player.dart';
@@ -12,7 +12,9 @@ class MobileNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.select((PageCubit cubit) => cubit.state);
+    final location = GoRouter.of(context).location;
+    final selectedIndex =
+        pages.indexWhere((page) => location.startsWith(page.path));
     final currentTrack =
         context.select((PlayerCubit cubit) => cubit.state.currentTrack);
     return Column(
@@ -25,12 +27,10 @@ class MobileNavBar extends StatelessWidget {
             final index = e.key;
             final page = e.value;
             return NavigationItem(
-              selected: state.index == index,
+              selected: selectedIndex == index,
               icon: page.icon,
               selectedIcon: page.selectedIcon,
-              onPressed: () {
-                context.read<PageCubit>().setIndex(index);
-              },
+              onPressed: () => context.push(page.path),
             );
           }).toList(),
         ),

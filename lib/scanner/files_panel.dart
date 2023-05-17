@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../datasources/isar_datasource.dart';
 import '../player/player_cubit.dart';
-import '../scaffolds/app_scaffold.dart';
 import '../scroll.dart';
 
 class FilesPanel extends StatelessWidget {
@@ -14,27 +13,24 @@ class FilesPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final db = context.read<IsarDataSource>();
-    return ResponsiveScaffold(
-      title: title,
-      body: StreamBuilder(
-        stream: db.watchTracks(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return ListView(physics: scrollPhysics, children: [
-            for (final track in snapshot.data!)
-              ListTile(
-                title: Text("${track.title} - ${track.artist}"),
-                subtitle: Text(track.source),
-                trailing: Text(track.format?.type ?? 'Unknown'),
-                onTap: () {
-                  context.read<PlayerCubit>().add(track);
-                },
-              )
-          ]);
-        },
-      ),
+    return StreamBuilder(
+      stream: db.watchTracks(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return ListView(physics: scrollPhysics, children: [
+          for (final track in snapshot.data!)
+            ListTile(
+              title: Text("${track.title} - ${track.artist}"),
+              subtitle: Text(track.source),
+              trailing: Text(track.format?.type ?? 'Unknown'),
+              onTap: () {
+                context.read<PlayerCubit>().add(track);
+              },
+            )
+        ]);
+      },
     );
   }
 }

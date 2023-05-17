@@ -6,7 +6,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../datasources/filesystem_datasource.dart';
 import '../datasources/isar_datasource.dart';
-import '../scaffolds/app_scaffold.dart';
 import 'scanner_bloc.dart';
 import 'scanner_event.dart';
 import 'scanner_state.dart';
@@ -20,25 +19,22 @@ class ScannerPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final db = context.read<IsarDataSource>();
     final fs = context.read<FilesystemDataSource>();
-    return ResponsiveScaffold(
-      title: title,
-      body: BlocProvider(
-        create: (_) => ScannerBloc(db: db, fs: fs)..add(ScannerLoadEvent()),
-        child: BlocBuilder<ScannerBloc, ScannerState>(
-          builder: (context, state) {
-            if (state.error != null) _showError(context, state.error!);
-            switch (state.status) {
-              case ScannerStatus.initial:
-                return _buildInitial();
-              case ScannerStatus.no_source:
-                return _buildNoSource(context);
-              case ScannerStatus.in_progress:
-                return _buildInProgress(state);
-              case ScannerStatus.done:
-                return _buildDone(context, state);
-            }
-          },
-        ),
+    return BlocProvider(
+      create: (_) => ScannerBloc(db: db, fs: fs)..add(ScannerLoadEvent()),
+      child: BlocBuilder<ScannerBloc, ScannerState>(
+        builder: (context, state) {
+          if (state.error != null) _showError(context, state.error!);
+          switch (state.status) {
+            case ScannerStatus.initial:
+              return _buildInitial();
+            case ScannerStatus.no_source:
+              return _buildNoSource(context);
+            case ScannerStatus.in_progress:
+              return _buildInProgress(state);
+            case ScannerStatus.done:
+              return _buildDone(context, state);
+          }
+        },
       ),
     );
   }

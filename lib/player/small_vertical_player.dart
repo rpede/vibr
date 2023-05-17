@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vibr/models/track.dart';
 import 'now_playing_scaffold.dart';
 import 'playback_controls.dart';
@@ -31,9 +32,7 @@ class SmallVerticalPlayer extends StatelessWidget {
                 Text(track.artist),
               ]),
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => NowPlayingScaffold(),
-          ));
+          context.push(NowPlayingScaffold.path);
         },
       ),
       PlaybackControls(size: 36, showSkip: extended),

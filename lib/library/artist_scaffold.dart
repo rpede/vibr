@@ -6,6 +6,7 @@ import '../scroll.dart';
 import 'album_tile.dart';
 
 class ArtistScaffold extends StatelessWidget {
+  static const path = 'artist';
   final double spacing = 10;
   final String artist;
 
@@ -14,25 +15,22 @@ class ArtistScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final db = context.read<IsarDataSource>();
-    return Scaffold(
-      appBar: AppBar(title: Text(artist)),
-      body: FutureBuilder(
-        future: db.getAlbumsByArtist(artist),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
-          return GridView.count(
-            physics: scrollPhysics,
-            crossAxisCount: _getCrossAxisCount(context),
-            mainAxisSpacing: spacing,
-            crossAxisSpacing: spacing,
-            padding: EdgeInsets.all(spacing),
-            children: [
-              for (final album in snapshot.data!) AlbumTile(album: album)
-            ],
-          );
-        },
-      ),
+    return FutureBuilder(
+      future: db.getAlbumsByArtist(artist),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return Center(child: CircularProgressIndicator());
+        return GridView.count(
+          physics: scrollPhysics,
+          crossAxisCount: _getCrossAxisCount(context),
+          mainAxisSpacing: spacing,
+          crossAxisSpacing: spacing,
+          padding: EdgeInsets.all(spacing),
+          children: [
+            for (final album in snapshot.data!) AlbumTile(album: album)
+          ],
+        );
+      },
     );
   }
 

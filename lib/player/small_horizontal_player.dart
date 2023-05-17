@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../models/models.dart';
 import 'now_playing_scaffold.dart';
@@ -12,9 +13,7 @@ class SmallHorizontalPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const NowPlayingScaffold(),
-        ));
+        context.push(NowPlayingScaffold.path);
       },
       leading: SizedBox(
         height: 50,
