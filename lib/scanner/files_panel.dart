@@ -6,8 +6,6 @@ import '../player/player_cubit.dart';
 import '../scroll.dart';
 
 class FilesPanel extends StatelessWidget {
-  static const title = 'Files';
-
   const FilesPanel({super.key});
 
   @override

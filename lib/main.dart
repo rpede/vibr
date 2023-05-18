@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,7 @@ class VibrApp extends StatelessWidget {
           BlocProvider(create: (_) => PlayerCubit())
         ],
         child: MaterialApp.router(
-          routerConfig: router,
+          routerConfig: GoRouter(routes: $appRoutes),
           scaffoldMessengerKey: scaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.dark,

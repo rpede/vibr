@@ -6,7 +6,6 @@ import '../scroll.dart';
 import '../widgets/track_tile.dart';
 
 class SongListScaffold extends StatelessWidget {
-  static const path = 'songs';
   const SongListScaffold({super.key});
 
   @override

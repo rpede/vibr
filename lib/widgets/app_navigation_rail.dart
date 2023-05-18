@@ -44,7 +44,7 @@ class _AppNavigationRailState extends State<AppNavigationRail> {
                 setState(() {
                   _selectedIndex = index;
                 });
-                context.push(pages[index].path);
+                pages[index].navigate(context);
               },
               destinations: [
                 for (final page in pages)

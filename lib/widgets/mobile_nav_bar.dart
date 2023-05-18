@@ -30,7 +30,7 @@ class MobileNavBar extends StatelessWidget {
               selected: selectedIndex == index,
               icon: page.icon,
               selectedIcon: page.selectedIcon,
-              onPressed: () => context.push(page.path),
+              onPressed: () => page.navigate(context),
             );
           }).toList(),
         ),

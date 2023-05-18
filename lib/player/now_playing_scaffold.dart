@@ -5,7 +5,6 @@ import 'now_playing.dart';
 import 'player_cubit.dart';
 
 class NowPlayingScaffold extends StatelessWidget {
-  static const path = '/now-playing';
   const NowPlayingScaffold({super.key});
 
   @override

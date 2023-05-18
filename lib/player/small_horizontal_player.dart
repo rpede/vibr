@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:vibr/routes.dart';
 
 import '../models/models.dart';
-import 'now_playing_scaffold.dart';
 import 'playback_controls.dart';
 
 class SmallHorizontalPlayer extends StatelessWidget {
@@ -12,9 +11,7 @@ class SmallHorizontalPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        context.push(NowPlayingScaffold.path);
-      },
+      onTap: () => NowPlayingRoute().push(context),
       leading: SizedBox(
         height: 50,
         width: 50,

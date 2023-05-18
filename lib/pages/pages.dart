@@ -1,24 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vibr/library/album_list_scaffold.dart';
-import 'package:vibr/library/album_songs_scaffold.dart';
-import 'package:vibr/library/artist_list_scaffold.dart';
-import 'package:vibr/library/artist_scaffold.dart';
-import 'package:vibr/library/song_list_scaffold.dart';
-import 'package:vibr/queue/queue_panel.dart';
-import 'package:vibr/scanner/files_panel.dart';
-
-import '../library/library_panel.dart';
-import '../models/models.dart';
-import '../scanner/scanner_panel.dart';
+import 'package:vibr/routes.dart';
 
 class AppPage extends Equatable {
   final String path;
   final String title;
   final IconData icon;
   final IconData selectedIcon;
-  final Widget Function() builder;
+  final void Function(BuildContext context) navigate;
   final List<RouteBase> routes;
 
   const AppPage({
@@ -26,62 +16,40 @@ class AppPage extends Equatable {
     required this.title,
     required this.icon,
     required this.selectedIcon,
-    required this.builder,
+    required this.navigate,
     this.routes = const [],
   });
 
   @override
-  List<Object?> get props => [title, icon, selectedIcon];
+  List<Object?> get props => [path, icon, selectedIcon];
 }
 
 List<AppPage> pages = [
-  const AppPage(
-    path: '/queue',
-    title: QueuePanel.title,
-    builder: QueuePanel.new,
+  AppPage(
+    path: QueueRoute.path,
+    title: 'Queue',
+    navigate: (context) => QueueRoute().push(context),
     icon: Icons.queue_music_outlined,
     selectedIcon: Icons.queue_music,
   ),
   AppPage(
-    path: LibraryPanel.path,
-    title: LibraryPanel.title,
-    builder: LibraryPanel.new,
+    path: LibraryRoute.path,
+    title: 'Library',
+    navigate: (context) => LibraryRoute().push(context),
     icon: Icons.interests_outlined,
     selectedIcon: Icons.interests,
-    routes: [
-      GoRoute(
-        path: AlbumListScaffold.path,
-        builder: (context, state) => const AlbumListScaffold(),
-      ),
-      GoRoute(
-        path: AlbumSongsScaffold.path,
-        builder: (context, state) => AlbumSongsScaffold(state.extra as Album),
-      ),
-      GoRoute(
-        path: ArtistListScaffold.path,
-        builder: (context, state) => const ArtistListScaffold(),
-      ),
-      GoRoute(
-        path: ArtistScaffold.path,
-        builder: (context, state) => ArtistScaffold(state.extra as String),
-      ),
-      GoRoute(
-        path: SongListScaffold.path,
-        builder: (context, state) => const SongListScaffold(),
-      ),
-    ],
   ),
-  const AppPage(
-    path: '/files',
-    title: FilesPanel.title,
-    builder: FilesPanel.new,
+  AppPage(
+    path: FilesRoute.path,
+    title: 'Files',
+    navigate: (context) => FilesRoute().push(context),
     icon: Icons.folder_outlined,
     selectedIcon: Icons.folder,
   ),
-  const AppPage(
-    path: '/scanner',
-    title: ScannerPanel.title,
-    builder: ScannerPanel.new,
+  AppPage(
+    path: ScannerRoute.path,
+    title: 'Scanner',
+    navigate: (context) => ScannerRoute().push(context),
     icon: Icons.radar_outlined,
     selectedIcon: Icons.radar,
   ),

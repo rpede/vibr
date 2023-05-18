@@ -11,8 +11,6 @@ import 'scanner_event.dart';
 import 'scanner_state.dart';
 
 class ScannerPanel extends StatelessWidget {
-  static const title = 'Scanner';
-
   const ScannerPanel({super.key});
 
   @override

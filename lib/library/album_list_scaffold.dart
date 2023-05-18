@@ -6,8 +6,6 @@ import '../scroll.dart';
 import 'album_tile.dart';
 
 class AlbumListScaffold extends StatelessWidget {
-  static const path = 'albums';
-
   final double spacing = 16;
   const AlbumListScaffold({super.key});
 

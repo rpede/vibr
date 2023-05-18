@@ -6,7 +6,6 @@ import '../scroll.dart';
 import 'album_tile.dart';
 
 class ArtistScaffold extends StatelessWidget {
-  static const path = 'artist';
   final double spacing = 10;
   final String artist;
 

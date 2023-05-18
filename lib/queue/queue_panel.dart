@@ -7,8 +7,6 @@ import '../scroll.dart';
 import 'queue_tile.dart';
 
 class QueuePanel extends StatelessWidget {
-  static const title = 'Queue';
-
   const QueuePanel({super.key});
 
   @override

@@ -81,9 +81,12 @@ class IsarDataSource {
     return await _isar.tracks.where().findAll();
   }
 
-  Future<List<Track>> getTracksByAlbum(Album album) async {
-    var query = _isar.tracks.filter().albumEqualTo(album.name);
-    if (album.artist != null) query = query.artistEqualTo(album.artist!);
+  Future<List<Track>> getTracksByAlbum({
+    String? artist,
+    required String album,
+  }) async {
+    var query = _isar.tracks.filter().albumEqualTo(album);
+    if (artist != null) query = query.artistEqualTo(artist);
     return await query.sortByTitle().findAll();
   }
 

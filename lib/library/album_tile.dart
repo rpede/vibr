@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vibr/library/library_panel.dart';
+import 'package:vibr/routes.dart';
 
 import '../theme.dart';
 import '../datasources/isar_datasource.dart';
@@ -20,12 +21,15 @@ class AlbumTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final player = context.read<PlayerCubit>();
     return InkWell(
-      onTap: () => context.push('${LibraryPanel.path}/${AlbumSongsScaffold.path}', extra: album),
+      onTap: () =>
+          ArtistAlbumRoute(artist: album.artist, album: album.name).push(context),
       onLongPress: () async {
-        final tracks =
-            await context.read<IsarDataSource>().getTracksByAlbum(album);
-        context.read<PlayerCubit>().addAll(tracks);
+        final tracks = await context
+            .read<IsarDataSource>()
+            .getTracksByAlbum(album: album.name);
+        player.addAll(tracks);
       },
       child: Column(
         children: [
