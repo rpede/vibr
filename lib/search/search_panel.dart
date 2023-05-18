@@ -68,7 +68,11 @@ class SearchPanel extends StatelessWidget {
                         for (final search in state.previous)
                           ListTile(
                             title: Text(search.term),
-                            trailing: Icon(Icons.close),
+                            trailing: IconButton(
+                              icon: Icon(Icons.close),
+                              onPressed: () =>
+                                  context.read<SearchCubit>().remove(search),
+                            ),
                           ),
                       ]),
                 ),

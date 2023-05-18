@@ -116,14 +116,21 @@ class IsarDataSource {
   }
 
   Future<List<Track>> searchForTracks(String term, {Set<String>? genres}) {
-    final query = term.split(' ').fold(
-        _isar.tracks.filter(),
-        (previousValue, element) =>
-            previousValue.textElementStartsWith(element).or());
-    return query.idGreaterThan(-1).findAll();
+    // final query = term.split(' ').fold(
+    //     _isar.tracks.filter(),
+    //     (previousValue, element) =>
+    //         previousValue.textElementStartsWith(element).or());
+    // return query.idGreaterThan(-1).findAll();
+    return _isar.tracks.where().textElementStartsWith(term).findAll();
   }
 
   Future<int> saveSearch(Search search) async {
     return await _isar.writeTxn(() => _isar.searchs.put(search));
+  }
+
+  Future<bool> removeSearch(int id) async {
+    return await _isar.writeTxn(() async {
+      return await _isar.searchs.delete(id);
+    });
   }
 }

@@ -49,4 +49,10 @@ class SearchCubit extends Cubit<SearchState> {
           results: UnmodifiableListView(results)),
     );
   }
+
+  remove(Search search) async {
+    await _db.removeSearch(search.id);
+    final previous = await _db.getLastSearches(10);
+    emit(state.copyWith(previous: UnmodifiableListView(previous)));
+  }
 }
