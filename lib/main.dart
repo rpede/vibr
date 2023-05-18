@@ -10,6 +10,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:vibr/datasources/files_types/flac_info_extractor.dart';
 import 'package:vibr/datasources/files_types/mp3_info_extractor.dart';
 import 'package:vibr/datasources/isar_datasource.dart';
+import 'package:vibr/models/search.dart';
 import 'package:vibr/models/track.dart';
 import 'package:vibr/player/player_cubit.dart';
 import 'package:vibr/routes.dart';
@@ -23,8 +24,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final dir = await getApplicationDocumentsDirectory();
   runApp(VibrApp(
-    db: IsarDataSource(
-        await Isar.open([TrackSchema, SourceSchema], directory: dir.path)),
+    db: IsarDataSource(await Isar.open(
+        [TrackSchema, SourceSchema, SearchSchema],
+        directory: dir.path)),
     fs: FilesystemDataSource(
       [
         Mp3InfoExtractor(),
@@ -52,9 +54,7 @@ class VibrApp extends StatelessWidget {
         RepositoryProvider.value(value: fs),
       ],
       child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => PlayerCubit())
-        ],
+        providers: [BlocProvider(create: (_) => PlayerCubit())],
         child: MaterialApp.router(
           routerConfig: GoRouter(routes: $appRoutes),
           scaffoldMessengerKey: scaffoldMessengerKey,

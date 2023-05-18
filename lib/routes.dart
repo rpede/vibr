@@ -13,6 +13,7 @@ import 'package:vibr/scanner/files_panel.dart';
 import 'package:vibr/scanner/scanner_panel.dart';
 
 import 'player/now_playing_scaffold.dart';
+import 'search/search_panel.dart';
 
 part 'routes.g.dart';
 
@@ -28,6 +29,7 @@ part 'routes.g.dart';
   TypedGoRoute<QueueRoute>(path: QueueRoute.path),
   TypedGoRoute<FilesRoute>(path: FilesRoute.path),
   TypedGoRoute<ScannerRoute>(path: ScannerRoute.path),
+  TypedGoRoute<SearchRoute>(path: SearchRoute.path),
 ])
 class ShellRoutes extends ShellRouteData {
   @override
@@ -126,6 +128,14 @@ class ScannerRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ScannerPanel();
+  }
+}
+
+class SearchRoute extends GoRouteData {
+  static const path = '/search';
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SearchPanel();
   }
 }
 

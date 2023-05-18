@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:isar/isar.dart';
 
 part 'source.g.dart';

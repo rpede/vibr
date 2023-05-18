@@ -40,6 +40,13 @@ List<AppPage> pages = [
     selectedIcon: Icons.interests,
   ),
   AppPage(
+    path: SearchRoute.path,
+    title: 'Search',
+    navigate: (context) => SearchRoute().push(context),
+    icon: Icons.search_outlined,
+    selectedIcon: Icons.search,
+  ),
+  AppPage(
     path: FilesRoute.path,
     title: 'Files',
     navigate: (context) => FilesRoute().push(context),

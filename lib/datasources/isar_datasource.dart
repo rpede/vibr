@@ -1,6 +1,5 @@
 import 'package:isar/isar.dart';
 
-import '../models/album.dart';
 import '../models/models.dart';
 
 class IsarDataSource {
@@ -97,5 +96,34 @@ class IsarDataSource {
         .sortByTitle()
         .findAll();
     return tracks;
+  }
+
+  Future<List<String>> getGenres() async {
+    final genres = await _isar.tracks
+        .where()
+        .distinctByGenre(caseSensitive: false)
+        .genreProperty()
+        .findAll();
+    return genres.where((e) => e != null).map((e) => e as String).toList();
+  }
+
+  Future<List<Search>> getLastSearches(int number) async {
+    return await _isar.searchs
+        .where()
+        .sortByTimestampDesc()
+        .limit(number)
+        .findAll();
+  }
+
+  Future<List<Track>> searchForTracks(String term, {Set<String>? genres}) {
+    final query = term.split(' ').fold(
+        _isar.tracks.filter(),
+        (previousValue, element) =>
+            previousValue.textElementStartsWith(element).or());
+    return query.idGreaterThan(-1).findAll();
+  }
+
+  Future<int> saveSearch(Search search) async {
+    return await _isar.writeTxn(() => _isar.searchs.put(search));
   }
 }

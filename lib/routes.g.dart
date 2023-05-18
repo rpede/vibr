@@ -76,6 +76,10 @@ RouteBase get $shellRoutes => ShellRouteData.$route(
           path: '/scanner',
           factory: $ScannerRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: '/search',
+          factory: $SearchRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -231,6 +235,21 @@ extension $ScannerRouteExtension on ScannerRoute {
 
   String get location => GoRouteData.$location(
         '/scanner',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+}
+
+extension $SearchRouteExtension on SearchRoute {
+  static SearchRoute _fromState(GoRouterState state) => SearchRoute();
+
+  String get location => GoRouteData.$location(
+        '/search',
       );
 
   void go(BuildContext context) => context.go(location);
