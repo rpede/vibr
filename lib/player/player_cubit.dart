@@ -99,7 +99,7 @@ class PlayerCubit extends Cubit<PlayerState> {
     final queuedTrack = state.index != null ? state.queue[state.index!] : null;
     final newQueue = [...state.queue];
     final track = newQueue.removeAt(oldIndex);
-    newQueue.insert(newIndex, track);
+    newQueue.insert(oldIndex < newIndex ? newIndex - 1 : newIndex, track);
     emit(state.copyWith(
       queue: UnmodifiableListView(newQueue),
       index: queuedTrack != null ? newQueue.indexOf(queuedTrack) : null,
