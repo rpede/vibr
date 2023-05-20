@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vibr/library/library_panel.dart';
 import 'package:vibr/routes.dart';
+import 'package:vibr/widgets/cover_image.dart';
 
 import '../theme.dart';
 import '../datasources/isar_datasource.dart';
@@ -34,7 +35,7 @@ class AlbumTile extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: image != null ? Image.asset(image!) : Placeholder(),
+            child: CoverImage(image),
           ),
           Container(
             padding: const EdgeInsets.only(top: 6),

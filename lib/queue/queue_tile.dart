@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vibr/theme.dart';
+import 'package:vibr/widgets/cover_image.dart';
 
 import '../models/models.dart';
 import '../player/player_cubit.dart';
@@ -25,8 +26,7 @@ class QueueTile extends StatelessWidget {
         leading: SizedBox(
           width: 50,
           height: 50,
-          child:
-              track.image != null ? Image.asset(track.image!) : Placeholder(),
+          child: CoverImage(track.image),
         ),
         title: Text(track.title),
         subtitle: Text(track.artist),

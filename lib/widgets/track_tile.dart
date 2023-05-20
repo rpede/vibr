@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vibr/widgets/cover_image.dart';
 
 import '../models/models.dart';
 import '../player/player_cubit.dart';
@@ -14,10 +15,10 @@ class TrackTile extends StatelessWidget {
     return ListTile(
       onTap: onTap ?? () => context.read<PlayerCubit>().add(track),
       leading: SizedBox(
-          width: 50,
-          height: 50,
-          child:
-              track.image != null ? Image.asset(track.image!) : Placeholder()),
+        width: 50,
+        height: 50,
+        child: CoverImage(track.image),
+      ),
       title: Text(track.title),
       subtitle: Text(track.artist),
       trailing: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),

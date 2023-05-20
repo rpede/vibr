@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vibr/models/track.dart';
+import 'package:vibr/widgets/cover_image.dart';
 
 import 'playback_controls.dart';
 import 'playback_slider.dart';
@@ -18,8 +19,7 @@ class LargePlayer extends StatelessWidget {
         Container(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child:
-                song.image != null ? Image.asset(song.image!) : Placeholder(),
+            child: CoverImage(song.image),
           ),
         ),
         const SizedBox(

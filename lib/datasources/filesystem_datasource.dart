@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:mime/mime.dart';
 
 import '../models/models.dart';
@@ -28,6 +29,21 @@ class FilesystemDataSource {
 
   Future<Track?> extractMetadata(File file) async {
     final type = lookupMimeType(file.path);
-    return supportedTypes[type]?.extract(file);
+    final track = await supportedTypes[type]?.extract(file);
+    if (track != null) track.image = await findImage(file);
+    return track;
+  }
+
+  Future<String?> findImage(File file) async {
+    try {
+      final dir = file.parent.absolute;
+      return await dir.list().map((e) => e.path).firstWhere(
+          (path) => path.endsWith('.jpg') || path.endsWith('.jpeg'));
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+      return null;
+    }
   }
 }

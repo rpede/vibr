@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vibr/routes.dart';
+import 'package:vibr/widgets/cover_image.dart';
 
 import '../models/models.dart';
 import 'playback_controls.dart';
@@ -17,8 +18,7 @@ class SmallHorizontalPlayer extends StatelessWidget {
         width: 50,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child:
-              track.image != null ? Image.asset(track.image!) : Placeholder(),
+          child: CoverImage(track.image)
         ),
       ),
       title: Text(track.title),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vibr/widgets/cover_image.dart';
 
 class GridTileItem extends StatelessWidget {
   const GridTileItem(
@@ -15,7 +16,7 @@ class GridTileItem extends StatelessWidget {
         SizedBox(
           width: 100,
           height: 100,
-          child: image != null ? Image.asset(image!, fit: BoxFit.cover) : Placeholder(),
+          child: CoverImage(image)
         ),
         Container(
           width: 100,
