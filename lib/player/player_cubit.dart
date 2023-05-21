@@ -41,18 +41,6 @@ class PlayerCubit extends Cubit<PlayerState> {
     }));
   }
 
-  void _checkLinuxSupport() {
-    if (Platform.isLinux) {
-      Process.run("which", ["mpv"]).then((result) {
-        if (result.exitCode != 0) {
-          scaffoldMessengerKey.currentState?.showSnackBar(const SnackBar(
-              content: Text(
-                  '''Command "mpv" was not found.\nIt is required on Linux.''')));
-        }
-      });
-    }
-  }
-
   Future<void> dispose() async {
     subscriptions.cancel();
     await _player.dispose();
