@@ -22,12 +22,13 @@ class NavigationItem extends StatelessWidget {
       child: AnimatedCrossFade(
         firstChild: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Icon(icon),
+          child: Icon(icon, size: 32,),
         ),
         secondChild: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Icon(
             selectedIcon,
+            size: 32,
             color: selectedColor,
             shadows: [Shadow(color: selectedColor, blurRadius: 10)],
           ),

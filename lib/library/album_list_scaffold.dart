@@ -35,6 +35,6 @@ class AlbumListScaffold extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
     final count = width ~/ 200;
-    return count == 0 ? 1 : count;
+    return count < 2 ? 2 : count;
   }
 }
