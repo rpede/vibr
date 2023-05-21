@@ -95,7 +95,7 @@ class ScannerPanel extends StatelessWidget {
   Future<String?> _pickDirectory() async {
     if ([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.windows]
         .contains(defaultTargetPlatform)) {
-      final statuses = await [Permission.storage, Permission.audio].request();
+      final statuses = await [Permission.storage, Permission.audio, Permission.photos].request();
       if (kDebugMode) {
         statuses.entries.forEach((e) => print('${e.key}: ${e.value}'));
       }

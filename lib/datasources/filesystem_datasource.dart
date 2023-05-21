@@ -36,7 +36,7 @@ class FilesystemDataSource {
 
   Future<String?> findImage(File file) async {
     try {
-      final dir = file.parent.absolute;
+      final dir = file.parent;
       return await dir.list().map((e) => e.path).firstWhere(
           (path) => path.endsWith('.jpg') || path.endsWith('.jpeg'));
     } catch (error) {
