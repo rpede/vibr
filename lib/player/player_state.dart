@@ -18,6 +18,13 @@ enum PlayerStatus {
   completed,
 }
 
+class PlaybackPosition {
+  final Duration current;
+  final Duration max;
+
+  PlaybackPosition({required this.current, required this.max});
+}
+
 class PlayerState extends Equatable {
   final int? index;
 
@@ -26,6 +33,8 @@ class PlayerState extends Equatable {
   final PlayerStatus status;
 
   final UnmodifiableListView<QueuedTrack> queue;
+
+  final PlaybackPosition? position;
 
   Track? get currentTrack =>
       index != null && queue.isNotEmpty ? queue[index!].track : null;
@@ -41,28 +50,32 @@ class PlayerState extends Equatable {
     required this.status,
     this.index,
     required this.queue,
+    this.position,
   });
 
   PlayerState.initial()
       : playing = false,
         status = PlayerStatus.stopped,
         index = null,
-        queue = UnmodifiableListView([]);
+        queue = UnmodifiableListView([]),
+        position = null;
 
   PlayerState copyWith({
     bool? playing,
     PlayerStatus? status,
     int? index,
     UnmodifiableListView<QueuedTrack>? queue,
+    PlaybackPosition? position,
   }) {
     return PlayerState(
       playing: playing ?? this.playing,
       status: status ?? this.status,
       index: index ?? this.index,
       queue: queue ?? this.queue,
+      position: position ?? this.position
     );
   }
 
   @override
-  List<Object?> get props => [playing, status, index, queue];
+  List<Object?> get props => [playing, status, index, queue, position];
 }

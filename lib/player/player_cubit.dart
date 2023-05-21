@@ -28,6 +28,17 @@ class PlayerCubit extends Cubit<PlayerState> {
         emit(state.copyWith(index: state.index! + 1));
       }
     }));
+
+    subscriptions.add(CombineLatestStream(
+      [_player.onPositionChanged, _player.onDurationChanged],
+      (values) => PlaybackPosition(current: values.first, max: values.last),
+    ).listen((position) {
+      if (position.current <= position.max) {
+        emit(state.copyWith(position: position));
+      } else {
+        emit(state.copyWith(position: null));
+      }
+    }));
   }
 
   void _checkLinuxSupport() {

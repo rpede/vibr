@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vibr/player/player_cubit.dart';
 
 import '../widgets/glow.dart';
 
@@ -10,13 +12,17 @@ class PlaybackSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accentColor = Theme.of(context).colorScheme.tertiary;
+    final position =
+        context.select((PlayerCubit player) => player.state.position);
+    final current = position?.current ?? const Duration();
+    final max = position?.max ?? const Duration();
     return Glow(
       child: Slider(
         thumbColor: accentColor,
-        value: 20,
-        max: 100,
-        divisions: 5,
-        label: '0:52 / 4:18',
+        value: current.inSeconds.toDouble(),
+        max: max.inSeconds.toDouble(),
+        label:
+            '${current.inMinutes}:${current.inSeconds % 59} / ${max.inMinutes}:${max.inSeconds % 59}',
         onChanged: (double value) {},
       ),
     );
