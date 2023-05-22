@@ -115,13 +115,27 @@ class IsarDataSource {
         .findAll();
   }
 
-  Future<List<Track>> searchForTracks(String term, {Set<String>? genres}) {
+  Future<List<Track>> searchForTracks(String term,
+      {Set<String>? genres}) async {
     // final query = term.split(' ').fold(
     //     _isar.tracks.filter(),
     //     (previousValue, element) =>
     //         previousValue.textElementStartsWith(element).or());
     // return query.idGreaterThan(-1).findAll();
-    return _isar.tracks.where().textElementStartsWith(term).findAll();
+    final words =
+        term.split(' ').map((e) => e.trim()).where((e) => e.isNotEmpty);
+    if (words.isEmpty) {
+      return [];
+    } else if (words.length == 1) {
+      return await _isar.tracks.where().textElementStartsWith(term).findAll();
+    } else {
+      final query = words.take(words.length - 1).fold(
+            _isar.tracks.filter(),
+            (previousValue, element) =>
+                previousValue.textElementStartsWith(element).or(),
+          );
+      return await query.textElementStartsWith(words.last).findAll();
+    }
   }
 
   Future<int> saveSearch(Search search) async {

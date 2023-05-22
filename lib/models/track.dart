@@ -23,7 +23,8 @@ class Track {
   String? image;
 
   @Index(type: IndexType.value, caseSensitive: false)
-  List<String> get text => [artist, title, album];
+  List<String> get text =>
+      [...artist.split(' '), ...title.split(' '), ...album.split(' ')];
 
   Track({
     this.trackNumber,
