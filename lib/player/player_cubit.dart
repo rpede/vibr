@@ -6,7 +6,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../main.dart';
 import '../models/models.dart';
 import 'player_state.dart';
 
@@ -127,5 +126,9 @@ class PlayerCubit extends Cubit<PlayerState> {
       queue: newQueue,
       index: newIndex,
     ));
+  }
+
+  seek(Duration position) async {
+    await _player.seek(position);
   }
 }
