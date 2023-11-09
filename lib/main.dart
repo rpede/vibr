@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -62,14 +60,15 @@ class VibrApp extends StatelessWidget {
           themeMode: ThemeMode.dark,
           theme: theme,
           darkTheme: darkTheme,
-          builder: (context, child) => ResponsiveWrapper.builder(
-            StretchingScrollWrapper.builder(context, child!),
-            defaultScale: true,
+          builder: (context, child) => ResponsiveBreakpoints.builder(
+            // StretchingScrollWrapper.builder(context, child!),
+            // defaultScale: true,
+            child: child!,
             breakpoints: [
-              const ResponsiveBreakpoint.resize(350, name: MOBILE),
-              const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-              const ResponsiveBreakpoint.resize(1400, name: DESKTOP),
+              Breakpoint(start: 350, end: 800, name: MOBILE),
+              Breakpoint(start: 801, end: 1000, name: TABLET),
+              Breakpoint(start: 1001, end: 1400, name: PHONE),
+              Breakpoint(start: 1401, end: 1920, name: DESKTOP),
             ],
           ),
         ),

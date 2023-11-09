@@ -12,7 +12,7 @@ class MobileNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     final selectedIndex =
         pages.indexWhere((page) => location.startsWith(page.path));
     final currentTrack =

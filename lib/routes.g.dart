@@ -7,29 +7,9 @@ part of 'routes.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $nowPlayingRoute,
       $shellRoutes,
+      $nowPlayingRoute,
     ];
-
-RouteBase get $nowPlayingRoute => GoRouteData.$route(
-      path: '/now-playing',
-      factory: $NowPlayingRouteExtension._fromState,
-    );
-
-extension $NowPlayingRouteExtension on NowPlayingRoute {
-  static NowPlayingRoute _fromState(GoRouterState state) => NowPlayingRoute();
-
-  String get location => GoRouteData.$location(
-        '/now-playing',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-}
 
 RouteBase get $shellRoutes => ShellRouteData.$route(
       factory: $ShellRoutesExtension._fromState,
@@ -100,6 +80,8 @@ extension $HomeScreenRouteExtension on HomeScreenRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $LibraryRouteExtension on LibraryRoute {
@@ -115,6 +97,8 @@ extension $LibraryRouteExtension on LibraryRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $AlbumsRouteExtension on AlbumsRoute {
@@ -130,12 +114,14 @@ extension $AlbumsRouteExtension on AlbumsRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $ArtistAlbumRouteExtension on ArtistAlbumRoute {
   static ArtistAlbumRoute _fromState(GoRouterState state) => ArtistAlbumRoute(
         album: state.pathParameters['album']!,
-        artist: state.queryParameters['artist'],
+        artist: state.uri.queryParameters['artist'],
       );
 
   String get location => GoRouteData.$location(
@@ -151,6 +137,8 @@ extension $ArtistAlbumRouteExtension on ArtistAlbumRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $ArtistsRouteExtension on ArtistsRoute {
@@ -166,6 +154,8 @@ extension $ArtistsRouteExtension on ArtistsRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $ArtistRouteExtension on ArtistRoute {
@@ -183,6 +173,8 @@ extension $ArtistRouteExtension on ArtistRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $SongsRouteExtension on SongsRoute {
@@ -198,6 +190,8 @@ extension $SongsRouteExtension on SongsRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $QueueRouteExtension on QueueRoute {
@@ -213,6 +207,8 @@ extension $QueueRouteExtension on QueueRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $FilesRouteExtension on FilesRoute {
@@ -228,6 +224,8 @@ extension $FilesRouteExtension on FilesRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $ScannerRouteExtension on ScannerRoute {
@@ -243,6 +241,8 @@ extension $ScannerRouteExtension on ScannerRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $SearchRouteExtension on SearchRoute {
@@ -258,4 +258,28 @@ extension $SearchRouteExtension on SearchRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $nowPlayingRoute => GoRouteData.$route(
+      path: '/now-playing',
+      factory: $NowPlayingRouteExtension._fromState,
+    );
+
+extension $NowPlayingRouteExtension on NowPlayingRoute {
+  static NowPlayingRoute _fromState(GoRouterState state) => NowPlayingRoute();
+
+  String get location => GoRouteData.$location(
+        '/now-playing',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
