@@ -14,7 +14,7 @@ class NowPlayingScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Now Playing')),
       body: track == null
-          ? Center(child: Text('No current track'))
+          ? const Center(child: Text('No current track'))
           : NowPlaying(track),
     );
   }

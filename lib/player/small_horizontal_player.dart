@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vibr/routes.dart';
-import 'package:vibr/widgets/cover_image.dart';
 
 import '../models/models.dart';
+import '../routes.dart';
+import '../widgets/cover_image.dart';
 import 'playback_controls.dart';
 
 class SmallHorizontalPlayer extends StatelessWidget {
@@ -23,7 +23,7 @@ class SmallHorizontalPlayer extends StatelessWidget {
       ),
       title: Text(track.title),
       subtitle: Text(track.artist),
-      trailing: PlaybackControls(size: 24),
+      trailing: const PlaybackControls(size: 24),
     );
   }
 }

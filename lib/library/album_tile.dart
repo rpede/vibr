@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vibr/library/library_panel.dart';
 import 'package:vibr/routes.dart';
 import 'package:vibr/widgets/cover_image.dart';
 
@@ -9,7 +7,6 @@ import '../theme.dart';
 import '../datasources/isar_datasource.dart';
 import '../models/album.dart';
 import '../player/player_cubit.dart';
-import 'album_songs_scaffold.dart';
 
 class AlbumTile extends StatelessWidget {
   final Album album;

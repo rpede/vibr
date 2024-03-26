@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vibr/models/track.dart';
-import 'package:vibr/routes.dart';
-import 'package:vibr/widgets/cover_image.dart';
-import 'now_playing_scaffold.dart';
+import '../models/track.dart';
+import '../routes.dart';
+import '../widgets/cover_image.dart';
 import 'playback_controls.dart';
 
 class SmallVerticalPlayer extends StatelessWidget {

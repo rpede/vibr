@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vibr/widgets/cover_image.dart';
 import 'package:vibr/widgets/section_header.dart';
 
@@ -18,7 +16,7 @@ class ExplorePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
+      children: const [
         SectionHeader(title: 'Suggestions'),
         SongTile(
             song: Song(
@@ -93,7 +91,7 @@ class SongTile extends StatelessWidget {
       leading: SizedBox(width: 50, height: 50, child: CoverImage(song.image)),
       title: Text(song.title),
       subtitle: Text(song.artist),
-      trailing: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+      trailing: IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
     );
   }
 }

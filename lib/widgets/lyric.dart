@@ -7,8 +7,8 @@ class Lyrics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
         SectionHeader(title: 'Lyrics'),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),

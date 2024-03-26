@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vibr/theme.dart';
+import '../theme.dart';
 
 class ProfileAction extends StatelessWidget {
   const ProfileAction({super.key});

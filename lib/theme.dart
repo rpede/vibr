@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'color_schemes.g.dart';
-import 'main.dart';
 
 const headlineFont = 'Audiowide';
 

@@ -12,18 +12,18 @@ class ScannerState extends Equatable {
   final int numberOfTracks;
   final String? error;
 
-  ScannerState({
+  const ScannerState({
     required this.status,
     required this.numberOfTracks,
     this.error,
   });
 
-  ScannerState.initial()
+  const ScannerState.initial()
       : status = ScannerStatus.initial,
         numberOfTracks = 0,
         error = null;
 
-  ScannerState.noSource()
+  const ScannerState.noSource()
       : status = ScannerStatus.no_source,
         numberOfTracks = 0,
         error = null;

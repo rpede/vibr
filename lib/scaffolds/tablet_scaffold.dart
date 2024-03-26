@@ -18,8 +18,8 @@ class TabletScaffold extends StatelessWidget {
         responsive.isDesktop;
     return Scaffold(
       appBar: AppBar(
-        leading: NavigationControls(),
-        title: Text('Vibr'),
+        leading: const NavigationControls(),
+        title: const Text('Vibr'),
         actions: const [ProfileAction()],
       ),
       body: Row(

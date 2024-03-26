@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vibr/player/player_cubit.dart';
 
+import './player_cubit.dart';
 import '../widgets/glow.dart';
 
 class PlaybackSlider extends StatelessWidget {

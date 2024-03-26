@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/widgets/cover_image.dart';
 
 import '../models/models.dart';
 import '../player/player_cubit.dart';
+import 'cover_image.dart';
 
 class TrackTile extends StatelessWidget {
   final Track track;
@@ -21,7 +21,7 @@ class TrackTile extends StatelessWidget {
       ),
       title: Text(track.title),
       subtitle: Text(track.artist),
-      trailing: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+      trailing: IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
     );
   }
 }

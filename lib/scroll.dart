@@ -22,7 +22,7 @@ class StretchingScrollBehavior extends ScrollBehavior {
 class StretchingScrollWrapper extends StatelessWidget {
   final Widget child;
 
-  const StretchingScrollWrapper({Key? key, required this.child}) : super(key: key);
+  const StretchingScrollWrapper({super.key, required this.child});
 
   static Widget builder(BuildContext context, Widget child) {
     return StretchingScrollWrapper(child: child);

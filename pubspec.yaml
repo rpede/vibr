@@ -19,9 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.4 <3.0.0'
-
-isar_version: &isar_version 3.1.0+1
+  sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -40,21 +38,21 @@ dependencies:
   responsive_framework: ^1.1.1
   provider: ^6.0.5
   permission_handler: ^11.0.1
-  file_picker: ^6.1.1
+  file_picker: ^8.0.0+1
   mp3_info: ^0.2.1
   flac_metadata: ^1.0.4
   mime: ^1.0.4
   dart_tags: ^0.4.0
-  isar: *isar_version
-  isar_flutter_libs: *isar_version # contains Isar Core
+  isar: 3.1.0+1
+  isar_flutter_libs: 3.1.0+1 # contains Isar Core
   path_provider: ^2.1.1
   rxdart: ^0.27.7
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
   equatable: ^2.0.5
-  audioplayers: ^5.2.0
+  audioplayers: ^6.0.0
   uuid: ^4.2.1
-  go_router: ^12.1.1
+  go_router: ^13.2.1
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +64,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.1
-  isar_generator: *isar_version
+  isar_generator: 3.1.0+1
   build_runner: ^2.4.6
   go_router_builder: ^2.0.1
   build_verify: ^3.1.0

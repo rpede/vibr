@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:vibr/models/models.dart';
 
 import '../datasources/filesystem_datasource.dart';
 import '../datasources/isar_datasource.dart';
@@ -15,7 +14,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
   ScannerBloc({required IsarDataSource db, required FilesystemDataSource fs})
       : _db = db,
         _fs = fs,
-        super(ScannerState.initial()) {
+        super(const ScannerState.initial()) {
     on<ScannerLoadEvent>(_onLoad);
     on<ScannerPickSourceEvent>(_onPickSource);
     on<ScannerScanEvent>(_onScan);
@@ -25,7 +24,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
       ScannerLoadEvent event, Emitter<ScannerState> emit) async {
     final source = await _db.getLocalDataSource();
     if (source == null) {
-      emit(ScannerState.noSource());
+      emit(const ScannerState.noSource());
     } else {
       final numberOfTracks = await _db.countTracks();
       emit(ScannerState(
@@ -46,7 +45,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
     if (state.status == ScannerStatus.in_progress) return;
     final source = await _db.getLocalDataSource();
     if (source == null) {
-      emit(ScannerState.noSource());
+      emit(const ScannerState.noSource());
     } else {
       emit(state.copyWith(
         status: ScannerStatus.in_progress,

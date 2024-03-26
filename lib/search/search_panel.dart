@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:vibr/search/search_cubit.dart';
-import 'package:vibr/widgets/track_tile.dart';
 
 import '../datasources/isar_datasource.dart';
 import '../widgets/section_header.dart';
+import '../widgets/track_tile.dart';
+import 'search_cubit.dart';
 import 'search_state.dart';
 
 class SearchPanel extends StatelessWidget {
@@ -27,8 +24,8 @@ class SearchPanel extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
                     decoration: InputDecoration(
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 12),
+                      suffixIcon: const Padding(
+                        padding: EdgeInsets.only(right: 12),
                         child: Icon(Icons.search),
                       ),
                       border: OutlineInputBorder(
@@ -44,9 +41,9 @@ class SearchPanel extends StatelessWidget {
                       // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (state.results.isNotEmpty)
-                          SectionHeader(title: "Results"),
+                          const SectionHeader(title: "Results"),
                         for (final track in state.results) TrackTile(track),
-                        SectionHeader(title: "Genres"),
+                        const SectionHeader(title: "Genres"),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Wrap(
@@ -64,12 +61,12 @@ class SearchPanel extends StatelessWidget {
                                 .toList(),
                           ),
                         ),
-                        SectionHeader(title: 'Previous'),
+                        const SectionHeader(title: 'Previous'),
                         for (final search in state.previous)
                           ListTile(
                             title: Text(search.term),
                             trailing: IconButton(
-                              icon: Icon(Icons.close),
+                              icon: const Icon(Icons.close),
                               onPressed: () =>
                                   context.read<SearchCubit>().remove(search),
                             ),

@@ -13,7 +13,7 @@ class SectionHeader extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     return Padding(
-      padding: EdgeInsets.only(top: 36, bottom: 16, left: 8, right: 8),
+      padding: const EdgeInsets.only(top: 36, bottom: 16, left: 8, right: 8),
       child: Text(
         title,
         style: textTheme.headlineMedium,

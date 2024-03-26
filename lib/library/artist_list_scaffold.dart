@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/routes.dart';
 
 import '../datasources/isar_datasource.dart';
 import '../player/player_cubit.dart';
+import '../routes.dart';
 import '../scroll.dart';
 
 class ArtistListScaffold extends StatelessWidget {

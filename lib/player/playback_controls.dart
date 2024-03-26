@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/theme.dart';
 
+import '../theme.dart';
 import '../player/player_cubit.dart';
 import '../widgets/glow.dart';
 
@@ -62,7 +62,7 @@ class _PlaybackControlsState extends State<PlaybackControls>
 
   _buildPlayPause(BuildContext context) {
     return IconButton(
-      key: ValueKey('play-pause'),
+      key: const ValueKey('play-pause'),
       onPressed: () {
         context.read<PlayerCubit>().playPause();
       },

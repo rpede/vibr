@@ -14,8 +14,9 @@ class SongListScaffold extends StatelessWidget {
     return FutureBuilder(
       future: db.getTracks(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
         return ListView(
           physics: scrollPhysics,
           children:
