@@ -1,12 +1,16 @@
 import 'dart:io';
 
 import 'package:dart_tags/dart_tags.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mp3_info/mp3_info.dart';
 
 import '../../models/models.dart';
 import 'track_info_extractor.dart';
 
+@immutable
 class Mp3InfoExtractor implements TrackInfoExtractor {
+  const Mp3InfoExtractor();
+
   static const sampleRates = {
     SampleRate.rate_32000: 32000,
     SampleRate.rate_44100: 44100,

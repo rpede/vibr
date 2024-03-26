@@ -7,6 +7,8 @@ import '../../models/models.dart';
 import 'track_info_extractor.dart';
 
 class FlacInfoExtractor implements TrackInfoExtractor {
+  const FlacInfoExtractor();
+
   @override
   Future<Track> extract(File file) async {
     final flac = FlacInfo(file);

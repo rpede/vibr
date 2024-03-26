@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:mime/mime.dart';
+import 'package:vibr/core/datasources/files_types/file_types.dart';
 
 import '../models/models.dart';
 import 'files_types/track_info_extractor.dart';
@@ -9,7 +10,8 @@ import 'files_types/track_info_extractor.dart';
 class FilesystemDataSource {
   final Map<String, TrackInfoExtractor> supportedTypes;
 
-  FilesystemDataSource(List<TrackInfoExtractor> extractors)
+  FilesystemDataSource(
+      [List<TrackInfoExtractor> extractors = trackInfoExtractors])
       : supportedTypes = mimeTypeMap(extractors);
 
   static Map<String, TrackInfoExtractor> mimeTypeMap(

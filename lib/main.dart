@@ -6,13 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import 'core/datasources/files_types/flac_info_extractor.dart';
-import 'core/datasources/files_types/mp3_info_extractor.dart';
-import 'core/datasources/filesystem_datasource.dart';
-import 'core/datasources/isar_datasource.dart';
-import 'core/models/search.dart';
-import 'core/models/source.dart';
-import 'core/models/track.dart';
+import 'core/datasources/datasources.dart';
+import 'core/models/models.dart';
 import 'features/player/player_cubit.dart';
 import 'routing/routes.dart';
 import 'theme/theme.dart';
@@ -21,15 +16,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final dir = await getApplicationDocumentsDirectory();
   runApp(VibrApp(
-    db: IsarDataSource(await Isar.open(
-        [TrackSchema, SourceSchema, SearchSchema],
-        directory: dir.path)),
-    fs: FilesystemDataSource(
-      [
-        Mp3InfoExtractor(),
-        FlacInfoExtractor(),
-      ],
-    ),
+    db: IsarDataSource(await Isar.open(schemas, directory: dir.path)),
+    fs: FilesystemDataSource(),
   ));
 }
 

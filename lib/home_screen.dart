@@ -12,10 +12,7 @@ class HomeScreen extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              // 'assets/A vibrant.jpg',
               'assets/Hooded man playing electric guitar on stage.jpg',
-              // 'https://wallpapercave.com/wp/wp5882343.jpg',
-              // fit: BoxFit.fitHeight,
               fit: BoxFit.cover
             ),
           ),
