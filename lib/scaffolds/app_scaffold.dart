@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import 'desktop_scaffold.dart';
 import 'mobile_scaffold.dart';
@@ -15,11 +15,11 @@ class ResponsiveScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var responsive = ResponsiveWrapper.of(context);
-    if (responsive.isSmallerThan(TABLET) &&
+    var responsive = ResponsiveBreakpoints.of(context);
+    if (responsive.isMobile &&
         responsive.orientation == Orientation.portrait) {
       return MobileScaffold(body: body);
-    } else if (responsive.isSmallerThan(DESKTOP)) {
+    } else if (responsive.isTablet) {
       return TabletScaffold(body: body);
     } else {
       return DesktopScaffold(body: body);

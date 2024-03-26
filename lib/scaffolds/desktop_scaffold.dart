@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:vibr/player/player_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../player/large_player.dart';
+import '../player/player_cubit.dart';
 import '../widgets/app_navigation_rail.dart';
 import '../widgets/lyric.dart';
 import '../widgets/navigator_controls.dart';
@@ -20,8 +19,8 @@ class DesktopScaffold extends StatelessWidget {
     final badgeColor = Theme.of(context).colorScheme.tertiary;
     return Scaffold(
         appBar: AppBar(
-          leading: NavigationControls(),
-          title: Text('Vibr'),
+          leading: const NavigationControls(),
+          title: const Text('Vibr'),
           actions: [
             IconButton(
                 onPressed: () {},
@@ -52,7 +51,7 @@ class DesktopScaffold extends StatelessWidget {
                 child: ListView(
                   children: [
                     LargePlayer(currentTrack),
-                    Lyrics(),
+                    const Lyrics(),
                   ],
                 ),
               ),

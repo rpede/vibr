@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vibr/models/track.dart';
+import '../models/track.dart';
 import 'large_player.dart';
 import '../widgets/lyric.dart';
 
@@ -10,6 +10,6 @@ class NowPlaying extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [LargePlayer(track), Lyrics()]);
+    return ListView(children: [LargePlayer(track), const Lyrics()]);
   }
 }

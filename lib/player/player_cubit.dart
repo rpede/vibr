@@ -1,9 +1,7 @@
 import 'dart:collection';
-import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../models/models.dart';

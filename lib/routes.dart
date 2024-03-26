@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vibr/home_screen.dart';
-import 'package:vibr/library/album_list_scaffold.dart';
-import 'package:vibr/library/album_songs_scaffold.dart';
-import 'package:vibr/library/artist_list_scaffold.dart';
-import 'package:vibr/library/artist_scaffold.dart';
-import 'package:vibr/library/library_panel.dart';
-import 'package:vibr/library/song_list_scaffold.dart';
-import 'package:vibr/queue/queue_panel.dart';
-import 'package:vibr/scaffolds/app_scaffold.dart';
-import 'package:vibr/scanner/files_panel.dart';
-import 'package:vibr/scanner/scanner_panel.dart';
 
+import 'home_screen.dart';
+import 'library/album_list_scaffold.dart';
+import 'library/album_songs_scaffold.dart';
+import 'library/artist_list_scaffold.dart';
+import 'library/artist_scaffold.dart';
+import 'library/library_panel.dart';
+import 'library/song_list_scaffold.dart';
 import 'player/now_playing_scaffold.dart';
+import 'queue/queue_panel.dart';
+import 'scaffolds/app_scaffold.dart';
+import 'scanner/files_panel.dart';
+import 'scanner/scanner_panel.dart';
 import 'search/search_panel.dart';
 
 part 'routes.g.dart';

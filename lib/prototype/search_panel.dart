@@ -23,8 +23,8 @@ class SearchPanel extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: TextField(
             decoration: InputDecoration(
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(right: 12),
+              suffixIcon: const Padding(
+                padding: EdgeInsets.only(right: 12),
                 child: Icon(Icons.search),
               ),
               border: OutlineInputBorder(
@@ -37,7 +37,7 @@ class SearchPanel extends StatelessWidget {
           child: ListView(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SectionHeader(title: "Genres"),
+                const SectionHeader(title: "Genres"),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Wrap(
@@ -54,26 +54,26 @@ class SearchPanel extends StatelessWidget {
                         .toList(),
                   ),
                 ),
-                SectionHeader(title: 'Previous'),
-                ListTile(
+                const SectionHeader(title: 'Previous'),
+                const ListTile(
                     title: Text('Doom OST'), trailing: Icon(Icons.close)),
-                ListTile(
+                const ListTile(
                     title: Text('Infected Rain'),
                     trailing: Icon(Icons.close)),
-                ListTile(
+                const ListTile(
                     title: Text('Lorna Shore'), trailing: Icon(Icons.close)),
-                ListTile(
+                const ListTile(
                     title: Text('Imminence'), trailing: Icon(Icons.close)),
-                ListTile(
+                const ListTile(
                     title: Text('Arch Enemy'), trailing: Icon(Icons.close)),
-                ListTile(title: Text('Kreator'), trailing: Icon(Icons.close)),
-                ListTile(
+                const ListTile(title: Text('Kreator'), trailing: Icon(Icons.close)),
+                const ListTile(
                     title: Text('Fit for an Autopsy'),
                     trailing: Icon(Icons.close)),
-                ListTile(
+                const ListTile(
                     title: Text('The Algorithm'),
                     trailing: Icon(Icons.close)),
-                ListTile(
+                const ListTile(
                     title: Text('Master Boot Record'),
                     trailing: Icon(Icons.close))
               ]),

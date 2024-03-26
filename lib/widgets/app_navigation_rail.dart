@@ -26,7 +26,7 @@ class _AppNavigationRailState extends State<AppNavigationRail> {
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     final index = pages.indexWhere((page) => location.startsWith(page.path));
     if (index != -1) _selectedIndex = index;
     final currentTrack =

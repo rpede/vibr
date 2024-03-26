@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:bloc/bloc.dart';
-import 'package:vibr/datasources/isar_datasource.dart';
 
+import '../datasources/isar_datasource.dart';
 import '../models/models.dart';
 import 'search_state.dart';
 

@@ -15,8 +15,9 @@ class AlbumListScaffold extends StatelessWidget {
     return FutureBuilder(
       future: db.getAlbums(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
         return GridView.count(
           physics: scrollPhysics,
           crossAxisCount: _getCrossAxisCount(context),

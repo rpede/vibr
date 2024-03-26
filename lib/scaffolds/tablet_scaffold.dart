@@ -12,15 +12,14 @@ class TabletScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responsive = ResponsiveWrapper.of(context);
-    final extended = (responsive.isLargerThan(MOBILE) &&
-            // responsive.isMobile &&
+    final responsive = ResponsiveBreakpoints.of(context);
+    final extended = (responsive.isMobile &&
             responsive.orientation == Orientation.landscape) ||
-        responsive.isLargerThan(TABLET);
+        responsive.isDesktop;
     return Scaffold(
       appBar: AppBar(
-        leading: NavigationControls(),
-        title: Text('Vibr'),
+        leading: const NavigationControls(),
+        title: const Text('Vibr'),
         actions: const [ProfileAction()],
       ),
       body: Row(

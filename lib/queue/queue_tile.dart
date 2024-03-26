@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vibr/theme.dart';
-import 'package:vibr/widgets/cover_image.dart';
 
+import '../theme.dart';
 import '../models/models.dart';
 import '../player/player_cubit.dart';
+import '../widgets/cover_image.dart';
 
 class QueueTile extends StatelessWidget {
   final QueuedTrack queuedTrack;
@@ -30,7 +30,7 @@ class QueueTile extends StatelessWidget {
         ),
         title: Text(track.title),
         subtitle: Text(track.artist),
-        trailing: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+        trailing: IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
         tileColor: selected ? context.color().primaryContainer : null,
       ),
     );

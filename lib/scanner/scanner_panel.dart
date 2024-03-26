@@ -38,7 +38,7 @@ class ScannerPanel extends StatelessWidget {
   }
 
   Widget _buildInitial() {
-    return Center(child: CircularProgressIndicator());
+    return const Center(child: CircularProgressIndicator());
   }
 
   Widget _buildNoSource(BuildContext context) {
@@ -49,14 +49,14 @@ class ScannerPanel extends StatelessWidget {
           if (uri == null) return;
           context.read<ScannerBloc>().add(ScannerPickSourceEvent(uri));
         },
-        icon: Icon(Icons.folder),
-        label: Text('Pick'),
+        icon: const Icon(Icons.folder),
+        label: const Text('Pick'),
       ),
     );
   }
 
   Widget _buildInProgress(ScannerState state) {
-    return Center(
+    return const Center(
       child: Column(
         children: [
           Text('Scanning for music files...'),
@@ -69,7 +69,7 @@ class ScannerPanel extends StatelessWidget {
   Widget _buildDone(BuildContext context, ScannerState state) {
     return Center(
       child: Column(children: [
-        Text(
+        const Text(
           'Complete',
           style: TextStyle(fontSize: 30),
         ),
@@ -78,7 +78,7 @@ class ScannerPanel extends StatelessWidget {
           onPressed: () {
             context.read<ScannerBloc>().add(ScannerScanEvent());
           },
-          child: Text('Rescan'),
+          child: const Text('Rescan'),
         ),
         TextButton(
           onPressed: () async {
@@ -86,7 +86,7 @@ class ScannerPanel extends StatelessWidget {
             if (uri == null) return;
             context.read<ScannerBloc>().add(ScannerPickSourceEvent(uri));
           },
-          child: Text('Change source'),
+          child: const Text('Change source'),
         )
       ]),
     );
@@ -97,7 +97,9 @@ class ScannerPanel extends StatelessWidget {
         .contains(defaultTargetPlatform)) {
       final statuses = await [Permission.storage, Permission.audio, Permission.photos].request();
       if (kDebugMode) {
-        statuses.entries.forEach((e) => print('${e.key}: ${e.value}'));
+        for (var e in statuses.entries) {
+          print('${e.key}: ${e.value}');
+        }
       }
     }
     return await FilePicker.platform.getDirectoryPath();
