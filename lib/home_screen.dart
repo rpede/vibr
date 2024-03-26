@@ -12,8 +12,8 @@ class HomeScreen extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              'assets/Hooded man playing electric guitar on stage.jpg',
-              fit: BoxFit.cover
+              'assets/splash_background.jpg',
+              fit: BoxFit.cover,
             ),
           ),
           Align(
