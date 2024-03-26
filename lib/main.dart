@@ -6,16 +6,16 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import 'datasources/files_types/flac_info_extractor.dart';
-import 'datasources/files_types/mp3_info_extractor.dart';
-import 'datasources/filesystem_datasource.dart';
-import 'datasources/isar_datasource.dart';
-import 'models/search.dart';
-import 'models/source.dart';
-import 'models/track.dart';
-import 'player/player_cubit.dart';
-import 'routes.dart';
-import 'theme.dart';
+import 'core/datasources/files_types/flac_info_extractor.dart';
+import 'core/datasources/files_types/mp3_info_extractor.dart';
+import 'core/datasources/filesystem_datasource.dart';
+import 'core/datasources/isar_datasource.dart';
+import 'core/models/search.dart';
+import 'core/models/source.dart';
+import 'core/models/track.dart';
+import 'features/player/player_cubit.dart';
+import 'routing/routes.dart';
+import 'theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

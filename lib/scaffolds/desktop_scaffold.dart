@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../player/large_player.dart';
-import '../player/player_cubit.dart';
-import '../widgets/app_navigation_rail.dart';
-import '../widgets/lyric.dart';
-import '../widgets/navigator_controls.dart';
+import '../features/player/large_player.dart';
+import '../features/player/player_cubit.dart';
+import '../common/app_navigation_rail.dart';
+import '../common/lyric.dart';
+import '../common/navigator_controls.dart';
 
 class DesktopScaffold extends StatelessWidget {
   final Widget body;

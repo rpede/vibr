@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:vibr/widgets/navigator_controls.dart';
+import 'package:vibr/common/navigator_controls.dart';
 
-import '../widgets/app_navigation_rail.dart';
-import '../widgets/profile_action.dart';
+import '../common/app_navigation_rail.dart';
+import '../common/profile_action.dart';
 
 class TabletScaffold extends StatelessWidget {
   final Widget body;

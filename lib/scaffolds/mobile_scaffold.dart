@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vibr/widgets/navigator_controls.dart';
-import 'package:vibr/widgets/profile_action.dart';
+import 'package:vibr/common/navigator_controls.dart';
+import 'package:vibr/common/profile_action.dart';
 
-import '../widgets/mobile_nav_bar.dart';
+import '../common/mobile_nav_bar.dart';
 
 class MobileScaffold extends StatelessWidget {
   final Widget body;
