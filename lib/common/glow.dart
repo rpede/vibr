@@ -17,7 +17,6 @@ class Glow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double blur = 5;
-    const blurColor = Colors.white;
     return ClipRRect(
       borderRadius: BorderRadius.zero,
       child: Stack(
