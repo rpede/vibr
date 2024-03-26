@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:vibr/routing/routes.dart';
 import 'package:vibr/theme/theme.dart';
 
-import '../../scroll.dart';
-
 class LibraryPanel extends StatelessWidget {
   const LibraryPanel({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      physics: scrollPhysics,
       children: [
         const SizedBox(height: 32),
         ListTile(

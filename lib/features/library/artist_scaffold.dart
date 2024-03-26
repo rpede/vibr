@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/datasources/isar_datasource.dart';
-import '../../scroll.dart';
 import 'album_tile.dart';
 
 class ArtistScaffold extends StatelessWidget {
@@ -21,7 +20,6 @@ class ArtistScaffold extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         return GridView.count(
-          physics: scrollPhysics,
           crossAxisCount: _getCrossAxisCount(context),
           mainAxisSpacing: spacing,
           crossAxisSpacing: spacing,

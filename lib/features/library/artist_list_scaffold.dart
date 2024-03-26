@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../core/datasources/isar_datasource.dart';
 import '../player/player_cubit.dart';
 import '../../routing/routes.dart';
-import '../../scroll.dart';
 
 class ArtistListScaffold extends StatelessWidget {
   const ArtistListScaffold({super.key});
@@ -19,7 +18,7 @@ class ArtistListScaffold extends StatelessWidget {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
-        return ListView(physics: scrollPhysics, children: [
+        return ListView(children: [
           for (final artist in snapshot.data!)
             ListTile(
               title: Text(artist),

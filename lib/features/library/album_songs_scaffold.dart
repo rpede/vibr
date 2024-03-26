@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/datasources/isar_datasource.dart';
-import '../../scroll.dart';
 import '../../common/track_tile.dart';
 
 class AlbumSongsScaffold extends StatelessWidget {
@@ -23,7 +22,7 @@ class AlbumSongsScaffold extends StatelessWidget {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
-        return ListView(physics: scrollPhysics, children: [
+        return ListView(children: [
           AppBar(title: Text(album)),
           for (final track in snapshot.data!) TrackTile(track),
         ]);

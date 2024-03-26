@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/datasources/isar_datasource.dart';
-import '../../scroll.dart';
 import '../../common/track_tile.dart';
 
 class SongListScaffold extends StatelessWidget {
@@ -18,7 +17,6 @@ class SongListScaffold extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         return ListView(
-          physics: scrollPhysics,
           children:
               (snapshot.data ?? []).map((track) => TrackTile(track)).toList(),
         );

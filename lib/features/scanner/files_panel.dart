@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../core/datasources/isar_datasource.dart';
 import '../player/player_cubit.dart';
-import '../../scroll.dart';
 
 class FilesPanel extends StatelessWidget {
   const FilesPanel({super.key});
@@ -17,7 +16,7 @@ class FilesPanel extends StatelessWidget {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
-        return ListView(physics: scrollPhysics, children: [
+        return ListView(children: [
           for (final track in snapshot.data!)
             ListTile(
               title: Text("${track.title} - ${track.artist}"),
